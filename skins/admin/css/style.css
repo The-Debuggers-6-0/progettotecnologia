@@ -1,0 +1,6 @@
+/*
+ * Skin backend "admin".
+ * Verra' sovrascritto / esteso quando AdminLTE sara' scaricato dentro skins/admin/.
+ */
+
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }

@@ -427,3 +427,22 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# === Progetto Tecnologie del Web ============================
+# Cache del template engine
+cache/*
+!cache/.gitkeep
+
+# Upload utente
+uploads/*
+!uploads/.gitkeep
+
+# Config locale (override credenziali DB / segreti)
+include/config.local.inc.php
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
+

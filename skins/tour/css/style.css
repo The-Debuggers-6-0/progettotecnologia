@@ -1,0 +1,9 @@
+/*
+ * Skin frontend "tour".
+ * Verra' sovrascritto / esteso quando il template Tour di BootstrapMade
+ * sara' scaricato dentro skins/tour/.
+ */
+
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+
+.hero { background: linear-gradient(135deg, #e3f2fd, #ffffff); }

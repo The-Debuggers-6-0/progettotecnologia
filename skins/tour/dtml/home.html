@@ -1,0 +1,27 @@
+<section class="hero text-center py-5 bg-light rounded mb-4">
+    <h1 class="display-5 fw-bold">Scopri esperienze uniche</h1>
+    <p class="lead">Tour, attivita' e avventure prenotabili in pochi clic.</p>
+    <a href="<[base]>/tours.php" class="btn btn-primary btn-lg mt-2">Esplora le esperienze</a>
+</section>
+
+<h2 class="h4 mb-3">In evidenza</h2>
+<div class="row">
+    <[foreach]>
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="<[experience_image]>" class="card-img-top" alt="<[experience_title]>">
+            <div class="card-body">
+                <h5 class="card-title"><[experience_title]></h5>
+                <p class="card-text"><[experience_short]></p>
+                <a href="<[experience_url]>" class="btn btn-outline-primary">Scopri di piu'</a>
+            </div>
+        </div>
+    </div>
+    <[/foreach]>
+</div>
+
+<[ifempty has_experiences]>
+<div class="alert alert-info">
+    Nessuna esperienza disponibile al momento. Torna a trovarci presto!
+</div>
+<[/ifempty]>
