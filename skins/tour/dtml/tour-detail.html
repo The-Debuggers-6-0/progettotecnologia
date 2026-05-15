@@ -1,0 +1,70 @@
+<div class="hero hero-inner">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mx-auto text-center">
+                <div class="intro-wrap">
+                    <h1 class="mb-0"><[exp_title]></h1>
+                    <p class="text-white-50"><[exp_location]></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="untree_co-section">
+    <div class="container">
+
+        <div class="mb-3">
+            <a href="<[tours_url]>" class="text-muted small">
+                &larr; Torna alle esperienze
+            </a>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-7 mb-4 mb-lg-0">
+
+                <[photos_html]>
+
+                <h2 class="section-title">Descrizione</h2>
+                <p><[exp_description]></p>
+
+            </div>
+
+            <div class="col-lg-4 ml-auto">
+                <div class="card border-0 shadow-sm p-4">
+                    <div class="mb-3">
+                        <span class="display-6 fw-bold text-dark">&euro;<[exp_price]></span>
+                        <span class="text-muted"> / persona</span>
+                    </div>
+
+                    <ul class="list-unstyled mb-4">
+                        <[if!empty exp_location]>
+                        <li class="mb-2">
+                            <i class="flaticon-pin text-primary me-2"></i>
+                            <strong>Luogo:</strong> <[exp_location]>
+                        </li>
+                        <[/if!empty]>
+                        <li class="mb-2">
+                            <i class="flaticon-clock text-primary me-2"></i>
+                            <strong>Durata:</strong> <[exp_duration]>
+                        </li>
+                        <li class="mb-2">
+                            <i class="flaticon-people text-primary me-2"></i>
+                            <strong>Max partecipanti:</strong> <[exp_max_part]>
+                        </li>
+                        <[if!empty exp_category]>
+                        <li class="mb-2">
+                            <i class="flaticon-bookmark text-primary me-2"></i>
+                            <strong>Categoria:</strong> <[exp_category]>
+                        </li>
+                        <[/if!empty]>
+                    </ul>
+
+                    <a href="#" class="btn btn-primary btn-block py-3">Prenota ora</a>
+                    <p class="text-muted text-center small mt-2">Le prenotazioni aprono presto</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

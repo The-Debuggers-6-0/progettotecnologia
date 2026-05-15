@@ -9,9 +9,8 @@
 
 - **Dominio applicativo:** piattaforma di prenotazione di **Esperienze & Tour** (visite guidate, attività turistiche, esperienze locali).
   Motivazione: dominio sufficientemente ricco da richiedere ≥14 tabelle (utenti, esperienze, categorie, foto, location, guide, slot temporali, prenotazioni, partecipanti, recensioni, oltre alle tabelle di giunzione).
-- **Template frontend scelto:** *Tour by BootstrapMade* (https://bootstrapmade.com/tour-bootstrap-travel-website-template/) — appropriato per il dominio turistico.
-- **Template backend scelto:** *AdminLTE* — standard de-facto per dashboard amministrative.
-- **Nota:** i file dei template non sono ancora stati scaricati e integrati. Per ora si usa Bootstrap 5 da CDN come placeholder, l'integrazione reale è rimandata.
+- **Template frontend scelto:** *Tour by Untree.co* (ThemeWagon, gratuito) — appropriato per il dominio turistico. BootstrapMade era la scelta originale ma è diventato a pagamento; sostituito con Untree.co stessa categoria visiva. Integrato in `skins/tour/` dopo la Slice 1.
+- **Template backend scelto:** *AdminLTE 3.2.0* (scaricato da GitHub releases, file locali in `skins/admin/`). Integrato dopo la Slice 2. Vedi `docs/admin-template.md` per i dettagli.
 
 ## 2. Struttura delle cartelle
 
@@ -85,9 +84,9 @@ Il motore non permette lo stesso placeholder dentro e fuori da `<[foreach]>`.
 
 ## 5. Cosa NON è stato fatto in questo slice (rimandato)
 
-- Download dei file reali del template Tour e AdminLTE (CSS, JS, immagini). Si userà Bootstrap CDN come placeholder finché non li integriamo.
-- Pagine `tours.php`, `about.php`, `contact.php` (linkate dalla navbar ma non ancora create).
-- Qualsiasi logica di business o DB query.
+- ~~Download dei file reali del template Tour e AdminLTE~~ — **completato**: Tour by Untree.co integrato dopo Slice 1, AdminLTE 3 integrato dopo Slice 2.
+- Pagine `tours.php`, `about.php`, `contact.php` — `tours.php` completata in Slice 2; `about.php` e `contact.php` rimangono da creare.
+- Qualsiasi logica di business o DB query — completata a partire da Slice 1.
 
 ## 6. Come verificare che lo slice funzioni
 

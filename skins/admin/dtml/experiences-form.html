@@ -1,0 +1,93 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0"><[form_title]></h1>
+    <a href="<[back_url]>" class="btn btn-outline-secondary"><i class="fas fa-arrow-left"></i> Torna alla lista</a>
+</div>
+
+<[if!empty error]>
+<div class="alert alert-danger"><[error]></div>
+<[/if!empty]>
+
+<form method="post" action="<[action_url]>" enctype="multipart/form-data">
+<div class="row g-4">
+
+    <div class="col-lg-8">
+        <div class="card mb-4">
+            <div class="card-header fw-semibold">Dettagli principali</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titolo <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="title" name="title"
+                           value="<[exp_title]>" required>
+                </div>
+                <div class="mb-3">
+                    <label for="slug" class="form-label">Slug URL</label>
+                    <input type="text" class="form-control" id="slug" name="slug"
+                           value="<[exp_slug]>" placeholder="auto-generato dal titolo">
+                    <div class="form-text">Lascia vuoto per generarlo automaticamente.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="short_description" class="form-label">Descrizione breve</label>
+                    <textarea class="form-control" id="short_description" name="short_description"
+                              rows="2" maxlength="500"><[exp_short_desc]></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Descrizione completa</label>
+                    <textarea class="form-control" id="description" name="description"
+                              rows="6"><[exp_description]></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header fw-semibold">Foto di copertina</div>
+            <div class="card-body">
+                <[cover_preview]>
+                <input type="file" class="form-control" name="cover" accept="image/jpeg,image/png,image/webp">
+                <div class="form-text">JPG, PNG o WebP, max 5 MB.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card mb-4">
+            <div class="card-header fw-semibold">Informazioni</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label for="price" class="form-label">Prezzo (&euro;) <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="price" name="price"
+                           value="<[exp_price]>" min="0" step="0.01" required>
+                </div>
+                <div class="mb-3">
+                    <label for="location" class="form-label">Luogo</label>
+                    <input type="text" class="form-control" id="location" name="location"
+                           value="<[exp_location]>">
+                </div>
+                <div class="mb-3">
+                    <label for="duration_minutes" class="form-label">Durata (minuti)</label>
+                    <input type="number" class="form-control" id="duration_minutes" name="duration_minutes"
+                           value="<[exp_duration]>" min="1">
+                </div>
+                <div class="mb-3">
+                    <label for="max_participants" class="form-label">Max partecipanti</label>
+                    <input type="number" class="form-control" id="max_participants" name="max_participants"
+                           value="<[exp_max_part]>" min="1">
+                </div>
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Categoria</label>
+                    <select class="form-select" id="category_id" name="category_id">
+                        <[category_options]>
+                    </select>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="is_active"
+                           name="is_active" value="1" <[exp_active_check]>>
+                    <label class="form-check-label" for="is_active">Visibile al pubblico</label>
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">Salva esperienza</button>
+    </div>
+
+</div>
+</form>

@@ -57,3 +57,36 @@ CREATE TABLE services_has_groups (
     FOREIGN KEY (groups_id)         REFERENCES groups(id) ON DELETE CASCADE
 );
 
+-- Slice 2: catalogo esperienze
+
+CREATE TABLE categories (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE experiences (
+    id                INT AUTO_INCREMENT PRIMARY KEY,
+    title             VARCHAR(200) NOT NULL,
+    slug              VARCHAR(200) NOT NULL UNIQUE,
+    description       TEXT,
+    short_description VARCHAR(500),
+    price             DECIMAL(8,2) NOT NULL DEFAULT 0.00,
+    duration_minutes  INT          DEFAULT NULL,
+    max_participants  INT          DEFAULT NULL,
+    category_id       INT          DEFAULT NULL,
+    location          VARCHAR(200),
+    is_active         TINYINT(1)   NOT NULL DEFAULT 1,
+    created_at        TIMESTAMP    DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE SET NULL
+);
+
+CREATE TABLE experience_photos (
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    experience_id INT          NOT NULL,
+    filename      VARCHAR(255) NOT NULL,
+    is_cover      TINYINT(1)   NOT NULL DEFAULT 0,
+    sort_order    INT          NOT NULL DEFAULT 0,
+    FOREIGN KEY (experience_id) REFERENCES experiences(id) ON DELETE CASCADE
+);
+

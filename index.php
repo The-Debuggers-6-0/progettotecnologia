@@ -1,34 +1,39 @@
 <?php
 
-/*
- * Homepage pubblica.
- * Mostra un hero + una lista (per ora vuota) delle esperienze in evidenza.
- * Le esperienze vere arriveranno con la Slice 2.
- */
-
 require_once __DIR__ . '/include/bootstrap.inc.php';
 
-# Inizializza il template engine e prepara la pagina.
-# new_page() e new_block() sono i nostri helper definiti in include/page.inc.php:
-# new_page() carica un template completo (con header, footer, ecc.)
-# new_block() carica un template "a pezzi" (es. solo il body) da inserire in un template completo.
+$featured = db()->query(
+    'SELECT e.id, e.title, e.price, e.location,
+            p.filename AS cover
+     FROM experiences e
+     LEFT JOIN experience_photos p ON p.experience_id = e.id AND p.is_cover = 1
+     WHERE e.is_active = 1
+     ORDER BY e.created_at DESC
+     LIMIT 6'
+)->fetchAll();
+
 $skin = new_page($config['skin']);
 $skin->setContent('title',     'Home');
 $skin->setContent('year',      date('Y'));
 $skin->setContent('base',      $config['base']);
 $skin->setContent('skin',      $config['skin']);
-// is_logged vale "1" se c'e' un utente in sessione, stringa vuota altrimenti.
-// Lo usiamo nel frame-public.html con <[if!empty is_logged]> / <[ifempty is_logged]>.
 $skin->setContent('is_logged', isset($_SESSION['user']['username']) ? '1' : '');
-$skin->setContent('user.name',  $_SESSION['user']['name'] ?? '');
+$skin->setContent('user.name', $_SESSION['user']['name'] ?? '');
 
 $home = new_block('home');
+$home->setContent('has_experiences', count($featured) ? '1' : '');
 
-/* Slice 2 popolera' qui le esperienze in evidenza.
- * Per ora il foreach resta vuoto: serve solo a verificare che
- * il template engine giri correttamente.
- */
-$home->setContent('has_experiences', '');
+foreach ($featured as $e) {
+    $coverUrl = $e['cover']
+        ? $config['base'] . '/uploads/experiences/' . $e['cover']
+        : $config['base'] . '/skins/tour/images/hero-slider-1.jpg';
+
+    $home->setContent('experience_url',      $config['base'] . '/tour-detail.php?id=' . $e['id']);
+    $home->setContent('experience_photo',    $coverUrl);
+    $home->setContent('experience_title',    htmlspecialchars($e['title']));
+    $home->setContent('experience_location', htmlspecialchars($e['location'] ?? ''));
+    $home->setContent('experience_price',    number_format($e['price'], 2, ',', '.'));
+}
 
 $skin->setContent('body', $home->get());
 $skin->close();

@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Esperienze</h1>
+    <a href="<[new_url]>" class="btn btn-primary"><i class="fas fa-plus"></i> Nuova esperienza</a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <[if!empty has_rows]>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th style="width:60px"></th>
+                    <th>Titolo</th>
+                    <th>Categoria</th>
+                    <th>Luogo</th>
+                    <th class="text-end">Prezzo</th>
+                    <th class="text-center">Stato</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <[foreach]>
+                <tr>
+                    <td>
+                        <img src="<[exp_cover_url]>" alt="" class="rounded"
+                             style="width:50px;height:50px;object-fit:cover">
+                    </td>
+                    <td class="fw-semibold"><[exp_title]></td>
+                    <td class="text-muted small"><[exp_category]></td>
+                    <td class="text-muted small"><[exp_location]></td>
+                    <td class="text-end">&euro;<[exp_price]></td>
+                    <td class="text-center">
+                        <span class="badge bg-<[exp_status_class]>"><[exp_status]></span>
+                    </td>
+                    <td class="text-end">
+                        <a href="<[exp_edit_url]>" class="btn btn-sm btn-outline-secondary me-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="<[exp_delete_url]>" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Eliminare questa esperienza?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <[/foreach]>
+            </tbody>
+        </table>
+        <[/if!empty]>
+
+        <[ifempty has_rows]>
+        <p class="text-muted text-center py-4">Nessuna esperienza. <a href="<[new_url]>">Crea la prima</a>.</p>
+        <[/ifempty]>
+    </div>
+</div>
