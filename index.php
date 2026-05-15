@@ -20,6 +20,7 @@ $skin->setContent('skin',      $config['skin']);
 // is_logged vale "1" se c'e' un utente in sessione, stringa vuota altrimenti.
 // Lo usiamo nel frame-public.html con <[if!empty is_logged]> / <[ifempty is_logged]>.
 $skin->setContent('is_logged', isset($_SESSION['user']['username']) ? '1' : '');
+$skin->setContent('user.name',  $_SESSION['user']['name'] ?? '');
 
 $home = new_block('home');
 

@@ -1,0 +1,53 @@
+<h1 class="h3 mb-4">Dashboard</h1>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1 text-primary"><i class="bi bi-people"></i></div>
+            <div class="fs-2 fw-bold"><[total_users]></div>
+            <div class="text-muted">Utenti registrati</div>
+            <a href="<[base]>/admin/users.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1 text-success"><i class="bi bi-collection"></i></div>
+            <div class="fs-2 fw-bold"><[total_groups]></div>
+            <div class="text-muted">Gruppi</div>
+            <a href="<[base]>/admin/groups.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm text-center p-3">
+            <div class="fs-1 text-warning"><i class="bi bi-shield-lock"></i></div>
+            <div class="fs-2 fw-bold"><[total_services]></div>
+            <div class="text-muted">Servizi</div>
+            <a href="<[base]>/admin/services.php" class="stretched-link"></a>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm p-3">
+            <h5>Accesso rapido — Utenti</h5>
+            <a href="<[base]>/admin/users.php" class="btn btn-outline-primary btn-sm mt-2">
+                <i class="bi bi-list-ul"></i> Elenco utenti
+            </a>
+            <a href="<[base]>/admin/users-form.php" class="btn btn-primary btn-sm mt-2">
+                <i class="bi bi-person-plus"></i> Nuovo utente
+            </a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm p-3">
+            <h5>Accesso rapido — Gruppi</h5>
+            <a href="<[base]>/admin/groups.php" class="btn btn-outline-success btn-sm mt-2">
+                <i class="bi bi-list-ul"></i> Elenco gruppi
+            </a>
+            <a href="<[base]>/admin/groups-form.php" class="btn btn-success btn-sm mt-2">
+                <i class="bi bi-plus-circle"></i> Nuovo gruppo
+            </a>
+        </div>
+    </div>
+</div>

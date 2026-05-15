@@ -27,7 +27,7 @@ $config = [
     /* --- Skin e paths -------------------------------------------- */
     'skin'         => 'tour',          // frontend skin
     'admin_skin'   => 'admin',         // backend skin
-    'base'         => '',              // base URL (vuoto: serve dalla root del vhost)
+    'base'         => '/progettotecnologia', // base URL relativa alla root di XAMPP
     'upload_dir'   => 'uploads',
 
     /* --- Cache del template engine ------------------------------- */

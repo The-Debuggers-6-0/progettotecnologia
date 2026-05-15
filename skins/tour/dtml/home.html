@@ -1,27 +1,127 @@
-<section class="hero text-center py-5 bg-light rounded mb-4">
-    <h1 class="display-5 fw-bold">Scopri esperienze uniche</h1>
-    <p class="lead">Tour, attivita' e avventure prenotabili in pochi clic.</p>
-    <a href="<[base]>/tours.php" class="btn btn-primary btn-lg mt-2">Esplora le esperienze</a>
-</section>
 
-<h2 class="h4 mb-3">In evidenza</h2>
-<div class="row">
-    <[foreach]>
-    <div class="col-md-4 mb-4">
-        <div class="card h-100">
-            <img src="<[experience_image]>" class="card-img-top" alt="<[experience_title]>">
-            <div class="card-body">
-                <h5 class="card-title"><[experience_title]></h5>
-                <p class="card-text"><[experience_short]></p>
-                <a href="<[experience_url]>" class="btn btn-outline-primary">Scopri di piu'</a>
+    <div class="hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <div class="intro-wrap">
+                        <h1 class="mb-5"><span class="d-block">Scopri le migliori esperienze in</span> <span class="typed-words"></span></h1>
+                        <div>
+                            <a href="<[base]>/tours.php" class="btn btn-primary py-3 px-5">Esplora le esperienze</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="slides">
+                        <img src="<[base]>/skins/tour/images/hero-slider-1.jpg" alt="Esperienza 1" class="img-fluid active">
+                        <img src="<[base]>/skins/tour/images/hero-slider-2.jpg" alt="Esperienza 2" class="img-fluid">
+                        <img src="<[base]>/skins/tour/images/hero-slider-3.jpg" alt="Esperienza 3" class="img-fluid">
+                        <img src="<[base]>/skins/tour/images/hero-slider-4.jpg" alt="Esperienza 4" class="img-fluid">
+                        <img src="<[base]>/skins/tour/images/hero-slider-5.jpg" alt="Esperienza 5" class="img-fluid">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <[/foreach]>
-</div>
 
-<[ifempty has_experiences]>
-<div class="alert alert-info">
-    Nessuna esperienza disponibile al momento. Torna a trovarci presto!
-</div>
-<[/ifempty]>
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="row mb-5 justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <h2 class="section-title text-center mb-3">Perché sceglierci</h2>
+                    <p>Offriamo esperienze curate, guide esperte e prenotazioni semplici per rendere ogni avventura indimenticabile.</p>
+                </div>
+            </div>
+            <div class="row align-items-stretch">
+                <div class="col-lg-4 order-lg-1">
+                    <div class="h-100"><div class="frame h-100"><div class="feature-img-bg h-100" style="background-image: url('<[base]>/skins/tour/images/hero-slider-3.jpg');"></div></div></div>
+                </div>
+                <div class="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-1">
+                    <div class="feature-1 d-md-flex">
+                        <div class="align-self-center">
+                            <span class="flaticon-house display-4 text-primary"></span>
+                            <h3>Esperienze locali</h3>
+                            <p class="mb-0">Tour guidati, attività all'aria aperta e avventure a contatto con la cultura locale.</p>
+                        </div>
+                    </div>
+                    <div class="feature-1">
+                        <div class="align-self-center">
+                            <span class="flaticon-restaurant display-4 text-primary"></span>
+                            <h3>Gastronomia &amp; Cultura</h3>
+                            <p class="mb-0">Scopri i sapori autentici e le tradizioni dei territori più belli d'Italia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-3">
+                    <div class="feature-1 d-md-flex">
+                        <div class="align-self-center">
+                            <span class="flaticon-mail display-4 text-primary"></span>
+                            <h3>Prenotazione facile</h3>
+                            <p class="mb-0">Prenota in pochi clic, ricevi conferma immediata e modifica quando vuoi.</p>
+                        </div>
+                    </div>
+                    <div class="feature-1 d-md-flex">
+                        <div class="align-self-center">
+                            <span class="flaticon-phone-call display-4 text-primary"></span>
+                            <h3>Supporto 7/7</h3>
+                            <p class="mb-0">Il nostro team è sempre disponibile per assisterti prima e durante l'esperienza.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="untree_co-section">
+        <div class="container">
+            <div class="row text-center justify-content-center mb-5">
+                <div class="col-lg-7">
+                    <h2 class="section-title text-center">Esperienze in evidenza</h2>
+                </div>
+            </div>
+
+            <[if!empty has_experiences]>
+            <div class="owl-carousel owl-3-slider">
+                <[foreach]>
+                <div class="item">
+                    <a class="media-thumb" href="<[experience_url]>">
+                        <div class="media-text">
+                            <h3><[experience_title]></h3>
+                            <span class="location"><[experience_location]></span>
+                        </div>
+                        <img src="<[experience_photo]>" alt="<[experience_title]>" class="img-fluid">
+                    </a>
+                    <p class="text-right mt-2 mb-0"><strong>da &euro;<[experience_price]></strong></p>
+                </div>
+                <[/foreach]>
+            </div>
+            <[/if!empty]>
+
+            <[ifempty has_experiences]>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center">
+                    <p class="text-muted">Nessuna esperienza disponibile al momento. Torna a trovarci presto!</p>
+                </div>
+            </div>
+            <[/ifempty]>
+
+            <div class="row mt-5">
+                <div class="col-12 text-center">
+                    <a href="<[base]>/tours.php" class="btn btn-primary py-3 px-5">Tutte le esperienze</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+        if (typeof Typed !== 'undefined') {
+            new Typed('.typed-words', {
+                strings: ['Italia', 'Abruzzo', 'Roma', 'Firenze', 'Venezia'],
+                typeSpeed: 80,
+                backSpeed: 50,
+                backDelay: 1500,
+                loop: true
+            });
+        }
+    });
+    </script>

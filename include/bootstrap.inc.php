@@ -19,3 +19,4 @@ require_once __DIR__ . '/config.inc.php';
 require_once __DIR__ . '/../template2.inc.php';
 require_once __DIR__ . '/db.inc.php';
 require_once __DIR__ . '/page.inc.php';
+require_once __DIR__ . '/auth.inc.php';

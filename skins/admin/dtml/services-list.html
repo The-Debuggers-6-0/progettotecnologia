@@ -1,0 +1,34 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Servizi</h1>
+    <a href="<[new_url]>" class="btn btn-warning btn-sm">
+        <i class="bi bi-plus-circle"></i> Nuovo servizio
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Gruppi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <[foreach]>
+                <tr>
+                    <td><strong><[svc_username]></strong></td>
+                    <td><span class="badge bg-secondary"><[svc_groups]></span></td>
+                    <td class="text-end">
+                        <a href="<[svc_delete_url]>" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Eliminare questo servizio?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <[/foreach]>
+            </tbody>
+        </table>
+    </div>
+</div>

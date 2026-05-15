@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Utenti</h1>
+    <a href="<[new_url]>" class="btn btn-primary btn-sm">
+        <i class="bi bi-person-plus"></i> Nuovo utente
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+    <div class="card-body p-0">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Nome</th>
+                    <th>Gruppi</th>
+                    <th>Registrato il</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <[foreach]>
+                <tr>
+                    <td><strong><[user_username]></strong></td>
+                    <td><[user_email]></td>
+                    <td><[user_fullname]></td>
+                    <td><span class="badge bg-secondary"><[user_groups]></span></td>
+                    <td><[user_created_at]></td>
+                    <td class="text-end">
+                        <a href="<[user_edit_url]>" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="<[user_delete_url]>" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Eliminare questo utente?')">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <[/foreach]>
+            </tbody>
+        </table>
+    </div>
+</div>

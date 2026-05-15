@@ -26,8 +26,9 @@ function new_page(string $skinName, string $frame = ''): Template {
         $frame = class_exists('Auth') ? 'frame-private' : 'frame-public';
     }
 
-    // ATTENZIONE: passiamo il path SENZA ".html" — sara' Template ad aggiungerlo.
-    return new Template("skins/{$skinName}/dtml/{$frame}");
+    // Percorso assoluto: funziona sia dalla root che da sottocartelle (es. admin/).
+    $root = __DIR__ . '/..';
+    return new Template("{$root}/skins/{$skinName}/dtml/{$frame}");
 }
 
 
@@ -38,5 +39,6 @@ function new_page(string $skinName, string $frame = ''): Template {
 function new_block(string $template): Template {
 
     $skinName = $GLOBALS['current_skin'] ?? $GLOBALS['config']['skin'];
-    return new Template("skins/{$skinName}/dtml/{$template}");
+    $root = __DIR__ . '/..';
+    return new Template("{$root}/skins/{$skinName}/dtml/{$template}");
 }
