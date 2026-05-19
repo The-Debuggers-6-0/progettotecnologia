@@ -101,6 +101,16 @@ Il form di prenotazione genera dinamicamente i campi nome/cognome per ogni parte
 
 Il JS viene iniettato nel placeholder `<[javascript]>` del frame pubblico come stringa PHP — nessun file JS esterno aggiuntivo.
 
+### Status prenotazione: conferma automatica
+Le prenotazioni vengono inserite direttamente con `status = 'confirmed'` al momento della conferma da parte dell'utente. L'admin può comunque modificare lo stato manualmente (es. portarlo a `cancelled`) dal pannello prenotazioni.
+
+```php
+INSERT INTO bookings (user_id, time_slot_id, participants_count, total_price, status, notes)
+VALUES (?, ?, ?, ?, 'confirmed', ?)
+```
+
+> Scelta progettuale: non ha senso un flusso di doppia conferma (utente prenota → admin approva) per un sito di esperienze turistiche dove la disponibilità è già garantita dalla transazione sul `booked_count`.
+
 ### `booked_count` aggiornato coerentemente
 - **Nuova prenotazione**: `booked_count += participants_count`
 - **Cancellazione (admin)**: `booked_count -= participants_count` (solo se il vecchio stato non era già `cancelled`)
