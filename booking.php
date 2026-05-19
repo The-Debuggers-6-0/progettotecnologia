@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $error = 'Spiacenti, i posti disponibili sono cambiati. Rimangono solo ' . $avail . '.';
                 } else {
                     $ins = db()->prepare(
-                        'INSERT INTO bookings (user_id, time_slot_id, participants_count, total_price, notes)
-                         VALUES (?, ?, ?, ?, ?)'
+                        'INSERT INTO bookings (user_id, time_slot_id, participants_count, total_price, status, notes)
+                         VALUES (?, ?, ?, ?, \'confirmed\', ?)'
                     );
                     $ins->execute([
                         $_SESSION['user']['id'], $slotId, $count,
