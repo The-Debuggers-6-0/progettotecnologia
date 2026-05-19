@@ -65,7 +65,7 @@ Form Bootstrap 5 centrato in una card, con:
 - Campi `username` e `password` con `required`
 - Link a `register.php` per chi non ha un account
 
-## 3. Utente di test inserito
+## 3.1 Utente di test inserito
 
 ```sql
 INSERT INTO users (username, email, password, name, surname)

@@ -7,7 +7,7 @@
 ## Motivazione
 
 Il PDF dei requisiti (Sezione 6) richiede esplicitamente due template separati:
-- Frontend: Tour by Untree.co (ThemeWagon) — già integrato
+- Frontend: Tour — Free Bootstrap 5 Travel Agency Website Template (ThemeWagon) — già integrato
 - Backend: template admin orientato a usabilità e produttività
 
 La Sezione 7 valuta l'admin su **Coverage, Usability, Functionality**. AdminLTE 3 è il template admin open-source più diffuso, riconoscibile e adatto all'esame.

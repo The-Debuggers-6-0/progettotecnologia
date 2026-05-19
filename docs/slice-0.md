@@ -9,7 +9,7 @@
 
 - **Dominio applicativo:** piattaforma di prenotazione di **Esperienze & Tour** (visite guidate, attività turistiche, esperienze locali).
   Motivazione: dominio sufficientemente ricco da richiedere ≥14 tabelle (utenti, esperienze, categorie, foto, location, guide, slot temporali, prenotazioni, partecipanti, recensioni, oltre alle tabelle di giunzione).
-- **Template frontend scelto:** *Tour by Untree.co* (ThemeWagon, gratuito) — appropriato per il dominio turistico. BootstrapMade era la scelta originale ma è diventato a pagamento; sostituito con Untree.co stessa categoria visiva. Integrato in `skins/tour/` dopo la Slice 1.
+- **Template frontend scelto:** *Tour — Free Bootstrap 5 Travel Agency Website Template* (ThemeWagon, gratuito — open source, uso commerciale permesso) — appropriato per il dominio turistico. BootstrapMade era la scelta originale ma è diventato a pagamento; sostituito con questo template scaricato da ThemeWagon della stessa categoria visiva. Integrato in `skins/tour/` dopo la Slice 1.
 - **Template backend scelto:** *AdminLTE 3.2.0* (scaricato da GitHub releases, file locali in `skins/admin/`). Integrato dopo la Slice 2. Vedi `docs/admin-template.md` per i dettagli.
 
 ## 2. Struttura delle cartelle
@@ -84,7 +84,7 @@ Il motore non permette lo stesso placeholder dentro e fuori da `<[foreach]>`.
 
 ## 5. Cosa NON è stato fatto in questo slice (rimandato)
 
-- ~~Download dei file reali del template Tour e AdminLTE~~ — **completato**: Tour by Untree.co integrato dopo Slice 1, AdminLTE 3 integrato dopo Slice 2.
+- ~~Download dei file reali del template Tour e AdminLTE~~ — **completato**: Tour (ThemeWagon) integrato dopo Slice 1, AdminLTE 3 integrato dopo Slice 2.
 - Pagine `tours.php`, `about.php`, `contact.php` — `tours.php` completata in Slice 2; `about.php` e `contact.php` rimangono da creare.
 - Qualsiasi logica di business o DB query — completata a partire da Slice 1.
 

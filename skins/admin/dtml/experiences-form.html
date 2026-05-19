@@ -38,6 +38,13 @@
             </div>
         </div>
 
+        <div class="card mb-4">
+            <div class="card-header fw-semibold">Guide assegnate</div>
+            <div class="card-body">
+                <[guides_checkboxes]>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header fw-semibold">Foto di copertina</div>
             <div class="card-body">
@@ -58,9 +65,16 @@
                            value="<[exp_price]>" min="0" step="0.01" required>
                 </div>
                 <div class="mb-3">
-                    <label for="location" class="form-label">Luogo</label>
+                    <label for="location" class="form-label">Luogo (testo libero)</label>
                     <input type="text" class="form-control" id="location" name="location"
                            value="<[exp_location]>">
+                    <div class="form-text">Oppure seleziona una sede strutturata.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="location_id" class="form-label">Sede (Location)</label>
+                    <select class="form-select" id="location_id" name="location_id">
+                        <[location_options]>
+                    </select>
                 </div>
                 <div class="mb-3">
                     <label for="duration_minutes" class="form-label">Durata (minuti)</label>

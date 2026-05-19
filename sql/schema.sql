@@ -90,3 +90,40 @@ CREATE TABLE experience_photos (
     FOREIGN KEY (experience_id) REFERENCES experiences(id) ON DELETE CASCADE
 );
 
+-- Slice 3: locations, guides, experience_guides
+
+CREATE TABLE locations (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    name        VARCHAR(200) NOT NULL,
+    city        VARCHAR(100) NOT NULL,
+    address     VARCHAR(300),
+    description TEXT,
+    latitude    DECIMAL(10,7),
+    longitude   DECIMAL(10,7)
+);
+
+CREATE TABLE guides (
+    id             INT AUTO_INCREMENT PRIMARY KEY,
+    name           VARCHAR(100) NOT NULL,
+    surname        VARCHAR(100) NOT NULL,
+    bio            TEXT,
+    photo_filename VARCHAR(255),
+    languages      VARCHAR(200),
+    email          VARCHAR(100),
+    phone          VARCHAR(30),
+    is_active      TINYINT(1)  NOT NULL DEFAULT 1,
+    created_at     TIMESTAMP   DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE experience_guides (
+    experience_id INT NOT NULL,
+    guide_id      INT NOT NULL,
+    PRIMARY KEY (experience_id, guide_id),
+    FOREIGN KEY (experience_id) REFERENCES experiences(id) ON DELETE CASCADE,
+    FOREIGN KEY (guide_id)      REFERENCES guides(id)      ON DELETE CASCADE
+);
+
+ALTER TABLE experiences
+    ADD COLUMN location_id INT DEFAULT NULL AFTER location,
+    ADD FOREIGN KEY fk_exp_location (location_id) REFERENCES locations(id) ON DELETE SET NULL;
+
