@@ -45,6 +45,8 @@
 |---|---|
 | `booking.php` | Form prenotazione: seleziona partecipanti, inserisce nomi/cognomi, calcola totale in tempo reale |
 | `booking-success.php` | Pagina di conferma con riepilogo prenotazione e lista partecipanti |
+| `about.php` | Pagina statica "Chi siamo" — risolve il 404 del link in navbar |
+| `contact.php` | Pagina statica "Contatti" con form dimostrativo — risolve il 404 del link in navbar |
 
 ### Admin CRUD — Prenotazioni
 
@@ -73,6 +75,8 @@
 | `skins/tour/dtml/booking-success.html` | booking_id, exp_title, exp_detail_url, slot_date, slot_time, participants_count, total_price, participants_html, tours_url |
 | `skins/admin/dtml/bookings-list.html` | has_rows; foreach: book_id, book_exp, book_slot, book_user, book_email, book_parts, book_price, book_status, book_status_cls, book_edit_url, book_delete_url |
 | `skins/admin/dtml/bookings-form.html` | booking_id, back_url, exp_title, slot_datetime, user_name, user_email, participants_count, total_price, has_notes, booking_notes, status_options, participants_html |
+| `skins/tour/dtml/about.html` | nessun placeholder dinamico — contenuto statico |
+| `skins/tour/dtml/contact.html` | nessun placeholder dinamico — form dimostrativo statico |
 
 ---
 

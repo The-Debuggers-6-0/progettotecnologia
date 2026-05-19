@@ -85,7 +85,7 @@ Il motore non permette lo stesso placeholder dentro e fuori da `<[foreach]>`.
 ## 5. Cosa NON è stato fatto in questo slice (rimandato)
 
 - ~~Download dei file reali del template Tour e AdminLTE~~ — **completato**: Tour (ThemeWagon) integrato dopo Slice 1, AdminLTE 3 integrato dopo Slice 2.
-- Pagine `tours.php`, `about.php`, `contact.php` — `tours.php` completata in Slice 2; `about.php` e `contact.php` rimangono da creare.
+- Pagine `tours.php`, `about.php`, `contact.php` — `tours.php` completata in Slice 2; `about.php` e `contact.php` completate in Slice 5.
 - Qualsiasi logica di business o DB query — completata a partire da Slice 1.
 
 ## 6. Come verificare che lo slice funzioni
