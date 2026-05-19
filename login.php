@@ -23,13 +23,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $row = $stmt->fetch();
 
         if ($row && password_verify($password, $row['password'])) {
-            // Login OK: salva i dati in sessione e vai alla home.
             $_SESSION['user'] = [
                 'id'       => $row['id'],
                 'username' => $row['username'],
                 'name'     => $row['name'],
             ];
-            header('Location: ' . $config['base'] . '/index.php');
+
+            // Se è admin → dashboard admin, altrimenti → home
+            $isAdmin = db()->prepare(
+                'SELECT 1 FROM users_has_groups ug
+                 JOIN groups g ON g.id = ug.groups_id
+                 WHERE ug.users_id = ? AND g.name = ?'
+            );
+            $isAdmin->execute([$row['id'], 'admin']);
+            $dest = $isAdmin->fetch()
+                ? $config['base'] . '/admin/index.php'
+                : $config['base'] . '/index.php';
+
+            header('Location: ' . $dest);
             exit;
         } else {
             $error = 'Username o password errati.';

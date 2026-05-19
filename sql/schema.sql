@@ -127,3 +127,41 @@ ALTER TABLE experiences
     ADD COLUMN location_id INT DEFAULT NULL AFTER location,
     ADD FOREIGN KEY fk_exp_location (location_id) REFERENCES locations(id) ON DELETE SET NULL;
 
+-- Slice 4: time_slots
+
+CREATE TABLE time_slots (
+    id             INT AUTO_INCREMENT PRIMARY KEY,
+    experience_id  INT NOT NULL,
+    start_datetime DATETIME NOT NULL,
+    capacity       INT NOT NULL DEFAULT 10,
+    booked_count   INT NOT NULL DEFAULT 0,
+    is_active      TINYINT(1) NOT NULL DEFAULT 1,
+    notes          VARCHAR(500),
+    created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (experience_id) REFERENCES experiences(id) ON DELETE CASCADE,
+    INDEX idx_start (start_datetime)
+);
+
+-- Slice 5: bookings, booking_participants
+
+CREATE TABLE bookings (
+    id                 INT AUTO_INCREMENT PRIMARY KEY,
+    user_id            INT NOT NULL,
+    time_slot_id       INT NOT NULL,
+    participants_count INT NOT NULL DEFAULT 1,
+    total_price        DECIMAL(8,2) NOT NULL,
+    status             ENUM('pending','confirmed','cancelled') NOT NULL DEFAULT 'pending',
+    notes              TEXT,
+    created_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id)      REFERENCES users(id)       ON DELETE CASCADE,
+    FOREIGN KEY (time_slot_id) REFERENCES time_slots(id)  ON DELETE CASCADE
+);
+
+CREATE TABLE booking_participants (
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    booking_id INT          NOT NULL,
+    name       VARCHAR(100) NOT NULL,
+    surname    VARCHAR(100) NOT NULL,
+    FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
+);
+

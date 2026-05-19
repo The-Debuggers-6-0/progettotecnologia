@@ -36,5 +36,41 @@
 /* table-light in AdminLTE */
 .table-light th { background-color: #f4f6f9; }
 
+/* text-end BS5 → text-right BS4 */
+.text-end { text-align: right !important; }
+
+/* form-label BS5 */
+.form-label { margin-bottom: 0.5rem; display: inline-block; }
+
+/* font-size BS5 */
+.fs-1 { font-size: 2.5rem  !important; }
+.fs-2 { font-size: 2rem    !important; }
+.fs-3 { font-size: 1.75rem !important; }
+.fs-4 { font-size: 1.5rem  !important; }
+.fs-5 { font-size: 1.25rem !important; }
+.fs-6 { font-size: 1rem    !important; }
+
+/* row gutter BS5 (g-3 = 1rem gap) */
+.row.g-3 { --bs-gutter-x: 1rem; --bs-gutter-y: 1rem; margin-right: -0.5rem; margin-left: -0.5rem; }
+.row.g-3 > * { padding-right: 0.5rem; padding-left: 0.5rem; margin-top: 1rem; }
+
+/* align-middle su celle tabella */
+.table.align-middle td,
+.table.align-middle th { vertical-align: middle; }
+td.align-middle, th.align-middle { vertical-align: middle !important; }
+
+/* stretched-link (già in BS4.4+, ridefinito per sicurezza) */
+.stretched-link::after {
+    position: absolute; top: 0; right: 0; bottom: 0; left: 0;
+    z-index: 1; content: "";
+}
+
+/* Badge colori aggiuntivi */
+.badge.bg-info    { background-color: #17a2b8 !important; color: #fff; }
+.badge.bg-primary { background-color: #007bff !important; color: #fff; }
+
+/* badge warning text fix */
+.badge.bg-warning { color: #212529 !important; }
+
 /* Piccole correzioni layout */
 .content-wrapper { min-height: calc(100vh - 101px); }

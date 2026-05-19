@@ -35,6 +35,7 @@ foreach ($rows as $r) {
     $block->setContent('exp_cover_url',  $coverUrl);
     $block->setContent('exp_status',     $r['is_active'] ? 'Attiva' : 'Bozza');
     $block->setContent('exp_status_class', $r['is_active'] ? 'success' : 'secondary');
+    $block->setContent('exp_slots_url',  $config['base'] . '/admin/time-slots.php?exp=' . $r['id']);
     $block->setContent('exp_edit_url',   $config['base'] . '/admin/experiences-form.php?id=' . $r['id']);
     $block->setContent('exp_delete_url', $config['base'] . '/admin/experiences-delete.php?id=' . $r['id']);
 }

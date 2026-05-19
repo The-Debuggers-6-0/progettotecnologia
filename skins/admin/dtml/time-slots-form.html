@@ -1,0 +1,64 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0"><[form_title]></h1>
+    <a href="<[back_url]>" class="btn btn-outline-secondary">
+        <i class="fas fa-arrow-left"></i> Torna agli slot
+    </a>
+</div>
+
+<[if!empty error]>
+<div class="alert alert-danger"><[error]></div>
+<[/if!empty]>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post">
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Esperienza <span class="text-danger">*</span></label>
+                <select name="experience_id" class="form-select" required>
+                    <option value="">— Seleziona esperienza —</option>
+                    <[exp_options]>
+                </select>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Data <span class="text-danger">*</span></label>
+                    <input type="date" name="start_date" class="form-control"
+                           value="<[slot_date]>" required>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Ora <span class="text-danger">*</span></label>
+                    <input type="time" name="start_time" class="form-control"
+                           value="<[slot_time]>" required>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Capienza <span class="text-danger">*</span></label>
+                <input type="number" name="capacity" class="form-control"
+                       value="<[slot_capacity]>" min="1" max="9999" required>
+                <div class="form-text">Numero massimo di partecipanti per questo slot.</div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Note</label>
+                <input type="text" name="notes" class="form-control"
+                       value="<[slot_notes]>" maxlength="500"
+                       placeholder="es. Punto di ritrovo, abbigliamento consigliato…">
+            </div>
+
+            <div class="mb-4">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="is_active"
+                           id="isActive" value="1" <[slot_active_checked]>>
+                    <label class="form-check-label" for="isActive">Slot attivo (visibile al pubblico)</label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salva slot
+            </button>
+        </form>
+    </div>
+</div>

@@ -77,16 +77,59 @@ foreach ($guideList as $g) {
     $guidesHtml .= '<div class="d-flex align-items-start mb-4">'
         . $photo
         . '<div>'
-        . '<h5 class="mb-1" style="font-size:1.1rem">' . htmlspecialchars($g['name'] . ' ' . $g['surname']) . '</h5>';
+        . '<h5 class="mb-1" style="font-size:1.2rem">' . htmlspecialchars($g['name'] . ' ' . $g['surname']) . '</h5>';
     if ($g['languages']) {
-        $guidesHtml .= '<p class="mb-1" style="color:#6c757d;font-size:.95rem">'
-            . '<i class="flaticon-translate" style="font-size:.85rem"></i> '
+        $guidesHtml .= '<p class="mb-1" style="color:#6c757d;font-size:1.05rem">'
+            . '<i class="flaticon-translate" style="font-size:.9rem"></i> '
             . htmlspecialchars($g['languages']) . '</p>';
     }
     if ($g['bio']) {
-        $guidesHtml .= '<p class="mb-0" style="font-size:.95rem">' . nl2br(htmlspecialchars($g['bio'])) . '</p>';
+        $guidesHtml .= '<p class="mb-0" style="font-size:1.05rem">' . nl2br(htmlspecialchars($g['bio'])) . '</p>';
     }
     $guidesHtml .= '</div></div>';
+}
+
+// Slot disponibili: prossimi 8 slot attivi con posti liberi
+$sstmt = db()->prepare(
+    'SELECT id, start_datetime, capacity, booked_count, notes
+     FROM time_slots
+     WHERE experience_id = ? AND is_active = 1 AND start_datetime >= NOW()
+     ORDER BY start_datetime ASC
+     LIMIT 8'
+);
+$sstmt->execute([$id]);
+$slotList = $sstmt->fetchAll();
+
+$slotsHtml = '';
+foreach ($slotList as $sl) {
+    $dt        = new DateTimeImmutable($sl['start_datetime']);
+    $available = $sl['capacity'] - $sl['booked_count'];
+    $badgeCls  = $available > 0 ? 'success' : 'danger';
+    $badgeTxt  = $available > 0 ? $available . ' posti liberi' : 'Esaurito';
+
+    $slotsHtml .= '<div class="d-flex align-items-center justify-content-between"'
+        . ' style="padding:1rem 0;border-bottom:1px solid #f0f0f0">'
+        . '<div>'
+        . '<span class="fw-semibold" style="font-size:1.18rem">'
+        . $dt->format('d/m/Y') . '</span>'
+        . '<span class="text-muted" style="font-size:1.05rem;display:block;margin-top:.2rem">'
+        . '<i class="flaticon-clock" style="font-size:.9rem"></i> ' . $dt->format('H:i') . '</span>';
+    if ($sl['notes']) {
+        $slotsHtml .= '<div class="text-muted mt-1" style="font-size:1rem">'
+            . htmlspecialchars($sl['notes']) . '</div>';
+    }
+    $bookBtn = '';
+    if ($available > 0) {
+        $bookUrl = $config['base'] . '/booking.php?slot=' . $sl['id'];
+        $bookBtn = '<a href="' . $bookUrl . '" class="btn btn-primary btn-sm ms-2">Prenota</a>';
+    }
+    $slotsHtml .= '</div>'
+        . '<div style="display:flex;align-items:center;gap:.5rem">'
+        . '<span class="badge bg-' . $badgeCls . '" style="font-size:.88rem;padding:.45em .85em">'
+        . $badgeTxt . '</span>'
+        . $bookBtn
+        . '</div>'
+        . '</div>';
 }
 
 // Mappa Leaflet: solo se la location ha coordinate valide
@@ -100,7 +143,7 @@ if ($exp['loc_lat'] !== null && $exp['loc_lng'] !== null) {
     $leafletBase = $config['base'] . '/skins/tour/vendor/leaflet';
 
     $mapHead = '<link rel="stylesheet" href="' . $leafletBase . '/leaflet.css">';
-    $mapHtml = '<h2 class="section-title" style="font-size:1.5rem">Dove ci trovi</h2>'
+    $mapHtml = '<h2 class="section-title" style="font-size:1.8rem">Dove ci trovi</h2>'
         . '<div id="exp-map" style="height:260px;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5"></div>';
     $mapJs = '<script src="' . $leafletBase . '/leaflet.js"></script>'
         . '<script>'
@@ -121,7 +164,15 @@ $skin->setContent('skin',      $config['skin']);
 $skin->setContent('is_logged', isset($_SESSION['user']['username']) ? '1' : '');
 $skin->setContent('user.name', $_SESSION['user']['name'] ?? '');
 $skin->setContent('head',      $mapHead);
-$skin->setContent('javascript',$mapJs);
+$smoothScrollJs = '<script>'
+    . 'document.addEventListener("DOMContentLoaded",function(){'
+    . 'document.querySelectorAll(".js-smooth-scroll").forEach(function(a){'
+    . 'a.addEventListener("click",function(e){'
+    . 'var t=document.getElementById("slots-section");'
+    . 'if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth",block:"start"});}'
+    . '});});});'
+    . '</script>';
+$skin->setContent('javascript', $smoothScrollJs . $mapJs);
 
 $block = new_block('tour-detail');
 $block->setContent('exp_title',       $title);
@@ -137,6 +188,8 @@ $block->setContent('tours_url',       $config['base'] . '/tours.php');
 $block->setContent('photos_html',     $photosHtml);
 $block->setContent('guides_html',     $guidesHtml);
 $block->setContent('has_guides',      $guidesHtml !== '' ? '1' : '');
+$block->setContent('slots_html',      $slotsHtml);
+$block->setContent('has_slots',       $slotsHtml !== '' ? '1' : '');
 $block->setContent('map_html',        $mapHtml);
 $block->setContent('has_map',         $mapHtml !== '' ? '1' : '');
 

@@ -3,8 +3,8 @@
         <div class="row align-items-center">
             <div class="col-lg-6 mx-auto text-center">
                 <div class="intro-wrap">
-                    <h1 style="font-size:3.2rem;margin-bottom:1rem"><[exp_title]></h1>
-                    <p class="text-white-50" style="font-size:1.15rem;margin-top:.5rem"><[exp_location]></p>
+                    <h1><[exp_title]></h1>
+                    <p class="text-white-50"><[exp_location]></p>
                 </div>
             </div>
         </div>
@@ -15,7 +15,7 @@
     <div class="container">
 
         <div class="mb-4">
-            <a href="<[tours_url]>" style="font-size:1.05rem;font-weight:500">
+            <a href="<[tours_url]>" style="font-size:1.2rem;font-weight:500">
                 &larr; Torna alle esperienze
             </a>
         </div>
@@ -26,11 +26,18 @@
                 <[photos_html]>
 
                 <h2 class="section-title">Descrizione</h2>
-                <p style="font-size:1.08rem;line-height:1.8"><[exp_description]></p>
+                <p style="font-size:1.18rem;line-height:1.9"><[exp_description]></p>
 
                 <[if!empty has_guides]>
                 <h2 class="section-title mt-5">Le tue guide</h2>
                 <[guides_html]>
+                <[/if!empty]>
+
+                <[if!empty has_slots]>
+                <h2 class="section-title mt-5" id="slots-section">Quando è disponibile</h2>
+                <div class="mb-4" style="border-top:1px solid #f5f5f5">
+                    <[slots_html]>
+                </div>
                 <[/if!empty]>
 
             </div>
@@ -38,39 +45,44 @@
             <div class="col-lg-4 ml-auto">
                 <div class="card border-0 shadow-sm" style="padding:2rem 2rem 1.5rem">
                     <div class="mb-4" style="border-bottom:1px solid #f0f0f0;padding-bottom:1.25rem">
-                        <span style="font-size:2.2rem;font-weight:700;color:#1A374D">&euro;<[exp_price]></span>
-                        <span class="text-muted" style="font-size:1rem"> / persona</span>
+                        <span style="font-size:2.4rem;font-weight:700;color:#1A374D">&euro;<[exp_price]></span>
+                        <span class="text-muted" style="font-size:1.05rem"> / persona</span>
                     </div>
 
                     <ul class="list-unstyled mb-4">
                         <[if!empty exp_location]>
-                        <li style="padding:.75rem 0;border-bottom:1px solid #f5f5f5">
+                        <li style="padding:.9rem 0;border-bottom:1px solid #f5f5f5">
                             <i class="flaticon-pin text-primary me-2"></i>
-                            <strong>Luogo</strong><br>
-                            <span class="text-muted" style="font-size:.95rem;padding-left:1.6rem"><[exp_location]></span>
+                            <strong style="font-size:1.05rem">Luogo</strong><br>
+                            <span class="text-muted" style="font-size:1rem;padding-left:1.6rem"><[exp_location]></span>
                         </li>
                         <[/if!empty]>
-                        <li style="padding:.75rem 0;border-bottom:1px solid #f5f5f5">
+                        <li style="padding:.9rem 0;border-bottom:1px solid #f5f5f5">
                             <i class="flaticon-clock text-primary me-2"></i>
-                            <strong>Durata</strong><br>
-                            <span class="text-muted" style="font-size:.95rem;padding-left:1.6rem"><[exp_duration]></span>
+                            <strong style="font-size:1.05rem">Durata</strong><br>
+                            <span class="text-muted" style="font-size:1rem;padding-left:1.6rem"><[exp_duration]></span>
                         </li>
-                        <li style="padding:.75rem 0;border-bottom:1px solid #f5f5f5">
+                        <li style="padding:.9rem 0;border-bottom:1px solid #f5f5f5">
                             <i class="flaticon-people text-primary me-2"></i>
-                            <strong>Max partecipanti</strong><br>
-                            <span class="text-muted" style="font-size:.95rem;padding-left:1.6rem"><[exp_max_part]></span>
+                            <strong style="font-size:1.05rem">Max partecipanti</strong><br>
+                            <span class="text-muted" style="font-size:1rem;padding-left:1.6rem"><[exp_max_part]></span>
                         </li>
                         <[if!empty exp_category]>
-                        <li style="padding:.75rem 0">
+                        <li style="padding:.9rem 0">
                             <i class="flaticon-bookmark text-primary me-2"></i>
-                            <strong>Categoria</strong><br>
-                            <span class="text-muted" style="font-size:.95rem;padding-left:1.6rem"><[exp_category]></span>
+                            <strong style="font-size:1.05rem">Categoria</strong><br>
+                            <span class="text-muted" style="font-size:1rem;padding-left:1.6rem"><[exp_category]></span>
                         </li>
                         <[/if!empty]>
                     </ul>
 
+                    <[if!empty has_slots]>
+                    <a href="#slots-section" class="btn btn-primary btn-block py-3 js-smooth-scroll" style="font-size:1.1rem">Prenota ora</a>
+                    <[/if!empty]>
+                    <[ifempty has_slots]>
                     <a href="#" class="btn btn-primary btn-block py-3" style="font-size:1.1rem">Prenota ora</a>
                     <p class="text-muted text-center small mt-3">Le prenotazioni aprono presto</p>
+                    <[/ifempty]>
                 </div>
 
                 <[if!empty has_map]>

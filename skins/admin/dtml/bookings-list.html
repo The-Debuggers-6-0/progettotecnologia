@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Prenotazioni</h1>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <[if!empty has_rows]>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Esperienza</th>
+                    <th>Slot</th>
+                    <th>Utente</th>
+                    <th class="text-center">Pers.</th>
+                    <th class="text-end">Totale</th>
+                    <th class="text-center">Stato</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <[foreach]>
+                <tr>
+                    <td class="text-muted small">#<[book_id]></td>
+                    <td class="fw-semibold"><[book_exp]></td>
+                    <td class="text-muted small"><[book_slot]></td>
+                    <td>
+                        <span class="fw-semibold"><[book_user]></span><br>
+                        <span class="text-muted small"><[book_email]></span>
+                    </td>
+                    <td class="text-center"><[book_parts]></td>
+                    <td class="text-end">&euro;<[book_price]></td>
+                    <td class="text-center">
+                        <span class="badge bg-<[book_status_cls]>"><[book_status]></span>
+                    </td>
+                    <td class="text-end">
+                        <a href="<[book_edit_url]>" class="btn btn-sm btn-outline-secondary me-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="<[book_delete_url]>" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Eliminare questa prenotazione?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <[/foreach]>
+            </tbody>
+        </table>
+        <[/if!empty]>
+
+        <[ifempty has_rows]>
+        <p class="text-muted text-center py-4">Nessuna prenotazione ancora.</p>
+        <[/ifempty]>
+    </div>
+</div>

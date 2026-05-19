@@ -1,4 +1,4 @@
-# Slice 3 — Location + Guide/Operatori
+# Slice 3 — Location, Guide/Operatori e Mappe
 
 **Stato:** completato
 
@@ -74,7 +74,7 @@ Aggiornamento esistente:
 | `skins/admin/dtml/guides-list.html` | foreach: guide_photo, guide_name, guide_languages, guide_email, guide_exp_count, guide_status, guide_edit_url, guide_delete_url |
 | `skins/admin/dtml/guides-form.html` | guide_name, guide_surname, guide_bio, guide_languages, guide_email, guide_phone, guide_active, photo_preview, error |
 | `skins/admin/dtml/experiences-form.html` | Aggiunto: location_options (dropdown), guides_checkboxes (HTML inline) |
-| `skins/tour/dtml/tour-detail.html` | Aggiunto: has_guides, guides_html |
+| `skins/tour/dtml/tour-detail.html` | Aggiunto: has_guides, guides_html, has_map, map_html |
 
 ---
 
@@ -104,7 +104,7 @@ Aggiunte due voci nel menu CONTENUTO di `frame-private.html`:
 
 ## 5. Integrazione mappe Leaflet + OpenStreetMap
 
-Per valorizzare i campi `latitude` / `longitude` di `locations`, integrata una mini-mappa interattiva nella pagina pubblica `tour-detail.php`.
+Per valorizzare i campi `latitude` / `longitude` di `locations`, integrata una mini-mappa interattiva nella pagina pubblica `tour-detail.php`. La mappa appare nella colonna destra, **sotto la card prezzo** (sezione "Dove ci trovi"), in modo da essere immediatamente visibile in alto senza dover scorrere oltre descrizione e guide.
 
 ### Perché Leaflet e non Google Maps
 - **Leaflet 1.9.4** + **OpenStreetMap** sono completamente gratuiti, open source (BSD), senza API key né account
@@ -145,6 +145,12 @@ L.marker([lat, lng]).addTo(m).bindPopup(nomeLocation).openPopup();
 
 I tile (le tessere della mappa) vengono caricati a runtime dai server OpenStreetMap (gratuito, con attribuzione obbligatoria — già inclusa).
 
+### Dimensionamento per colonna stretta
+Poiché la mappa è posizionata in `col-lg-4` (colonna destra, ~33% di larghezza), abbiamo dimensionato:
+- Altezza mappa: `260px` (compatto, ma sufficiente a leggere le strade)
+- Titolo "Dove ci trovi" forzato a `font-size:1.5rem` (l'h2 di default sarebbe stato troppo grande per la colonna)
+- Bordo `1px solid #e5e5e5` e `border-radius:12px` per coerenza visiva con la card prezzo soprastante
+
 ---
 
 ## 6. Come verificare lo slice
@@ -156,4 +162,5 @@ I tile (le tessere della mappa) vengono caricati a runtime dai server OpenStreet
 5. `/tour-detail.php?id=1` → la card mostra il luogo strutturato; sotto la descrizione compare la sezione "Le tue guide" con foto e bio
 6. Cancella la guida → la foto viene rimossa dal filesystem
 7. Cancella la location → `experiences.location_id` diventa NULL, la scheda mostra il testo libero (se valorizzato)
-8. Modifica la location del Colosseo aggiungendo coordinate (lat `41.8902`, lng `12.4924`) → ricarica `/tour-detail.php?id=1` → compare la sezione "Dove ci trovi" con mappa Leaflet interattiva e marker sul Colosseo
+8. Modifica la location del Colosseo aggiungendo coordinate (lat `41.8902`, lng `12.4924`) → ricarica `/tour-detail.php?id=1` → sotto la card "Prenota ora" (colonna destra) compare la sezione "Dove ci trovi" con mappa Leaflet interattiva e marker sul Colosseo
+9. Crea un'esperienza senza location (o con location senza coordinate) → la sezione mappa NON appare e Leaflet non viene caricato (zero overhead)

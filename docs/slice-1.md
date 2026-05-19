@@ -115,7 +115,7 @@ L'utente registrato non era nel gruppo `admin`.
 
 1. `http://localhost/progettotecnologia/login.php` → form di login.
 2. Credenziali sbagliate → alert "Username o password errati".
-3. Login con `admin`/`password` → redirect home, navbar mostra "Ciao, Admin Test" e "Esci".
+3. Login con `admin`/`password` → redirect a `/admin/index.php` (dashboard admin); da Slice 4 il login distingue admin da utente normale.
 4. `http://localhost/progettotecnologia/register.php` → form registrazione, crea nuovo utente → redirect a login.
 5. `http://localhost/progettotecnologia/admin/index.php` (loggati come admin) → dashboard con contatori utenti/gruppi/servizi.
 6. Admin → Utenti: lista con badge gruppo, pulsanti modifica/elimina.

@@ -1,52 +1,107 @@
 <h1 class="h3 mb-4">Dashboard</h1>
 
+<!-- Riga 1: Catalogo -->
+<p class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing:.08em">Catalogo</p>
 <div class="row g-3 mb-4">
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1 text-primary"><i class="bi bi-people"></i></div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#007bff"><i class="fas fa-compass"></i></div>
+            <div class="fs-2 fw-bold"><[total_exp]></div>
+            <div class="text-muted">Esperienze attive</div>
+            <[if!empty total_exp_draft]>
+            <div class="text-muted small"><[total_exp_draft]> in bozza</div>
+            <[/if!empty]>
+            <a href="<[base]>/admin/experiences.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#28a745"><i class="fas fa-tags"></i></div>
+            <div class="fs-2 fw-bold"><[total_categories]></div>
+            <div class="text-muted">Categorie</div>
+            <a href="<[base]>/admin/categories.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#fd7e14"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="fs-2 fw-bold"><[total_locations]></div>
+            <div class="text-muted">Location</div>
+            <a href="<[base]>/admin/locations.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#6f42c1"><i class="fas fa-hiking"></i></div>
+            <div class="fs-2 fw-bold"><[total_guides]></div>
+            <div class="text-muted">Guide attive</div>
+            <a href="<[base]>/admin/guides.php" class="stretched-link"></a>
+        </div>
+    </div>
+</div>
+
+<!-- Riga 2: Disponibilità e utenti -->
+<p class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing:.08em">Disponibilità &amp; Utenti</p>
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#17a2b8"><i class="fas fa-calendar-alt"></i></div>
+            <div class="fs-2 fw-bold"><[total_slots]></div>
+            <div class="text-muted">Slot futuri attivi</div>
+            <a href="<[base]>/admin/time-slots.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#e83e8c"><i class="fas fa-calendar-check"></i></div>
+            <div class="fs-2 fw-bold"><[total_bookings]></div>
+            <div class="text-muted">Prenotazioni totali</div>
+            <[if!empty pending_bookings]>
+            <div class="text-muted small"><[pending_bookings]> in attesa</div>
+            <[/if!empty]>
+            <a href="<[base]>/admin/bookings.php" class="stretched-link"></a>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#20c997"><i class="fas fa-users"></i></div>
             <div class="fs-2 fw-bold"><[total_users]></div>
             <div class="text-muted">Utenti registrati</div>
             <a href="<[base]>/admin/users.php" class="stretched-link"></a>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1 text-success"><i class="bi bi-collection"></i></div>
+    <div class="col-md-3">
+        <div class="card border-0 shadow-sm text-center p-3" style="position:relative">
+            <div style="font-size:2rem;color:#6c757d"><i class="fas fa-layer-group"></i></div>
             <div class="fs-2 fw-bold"><[total_groups]></div>
             <div class="text-muted">Gruppi</div>
             <a href="<[base]>/admin/groups.php" class="stretched-link"></a>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card border-0 shadow-sm text-center p-3">
-            <div class="fs-1 text-warning"><i class="bi bi-shield-lock"></i></div>
-            <div class="fs-2 fw-bold"><[total_services]></div>
-            <div class="text-muted">Servizi</div>
-            <a href="<[base]>/admin/services.php" class="stretched-link"></a>
-        </div>
-    </div>
 </div>
 
+<!-- Accessi rapidi -->
+<p class="text-muted text-uppercase small fw-bold mb-2" style="letter-spacing:.08em">Accesso rapido</p>
 <div class="row g-3">
     <div class="col-md-6">
         <div class="card border-0 shadow-sm p-3">
-            <h5>Accesso rapido — Utenti</h5>
-            <a href="<[base]>/admin/users.php" class="btn btn-outline-primary btn-sm mt-2">
-                <i class="bi bi-list-ul"></i> Elenco utenti
+            <h5 class="mb-3"><i class="fas fa-compass text-primary me-2"></i>Esperienze</h5>
+            <a href="<[base]>/admin/experiences.php" class="btn btn-outline-primary btn-sm mb-2">
+                <i class="fas fa-list"></i> Elenco esperienze
             </a>
-            <a href="<[base]>/admin/users-form.php" class="btn btn-primary btn-sm mt-2">
-                <i class="bi bi-person-plus"></i> Nuovo utente
+            <a href="<[base]>/admin/experiences-form.php" class="btn btn-primary btn-sm mb-2">
+                <i class="fas fa-plus"></i> Nuova esperienza
             </a>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card border-0 shadow-sm p-3">
-            <h5>Accesso rapido — Gruppi</h5>
-            <a href="<[base]>/admin/groups.php" class="btn btn-outline-success btn-sm mt-2">
-                <i class="bi bi-list-ul"></i> Elenco gruppi
+            <h5 class="mb-3"><i class="fas fa-calendar-alt text-info me-2"></i>Slot / Calendario</h5>
+            <a href="<[base]>/admin/time-slots.php" class="btn btn-outline-info btn-sm mb-2">
+                <i class="fas fa-list"></i> Tutti gli slot
             </a>
-            <a href="<[base]>/admin/groups-form.php" class="btn btn-success btn-sm mt-2">
-                <i class="bi bi-plus-circle"></i> Nuovo gruppo
+            <a href="<[base]>/admin/time-slots-form.php" class="btn btn-info btn-sm mb-2" style="color:#fff">
+                <i class="fas fa-plus"></i> Nuovo slot
             </a>
         </div>
     </div>
