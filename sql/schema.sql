@@ -7,8 +7,7 @@
 --
 --  Slice 1: users, groups, services, users_has_groups,
 --           services_has_groups
---  Slice 2: experiences, categories, experience_categories,
---           experience_photos
+--  Slice 2: experiences, categories, experience_photos
 --  Slice 3: locations, guides, experience_guides
 --  Slice 4: time_slots
 --  Slice 5: bookings, booking_participants
