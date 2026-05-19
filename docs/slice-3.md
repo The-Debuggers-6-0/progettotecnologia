@@ -102,7 +102,52 @@ Aggiunte due voci nel menu CONTENUTO di `frame-private.html`:
 
 ---
 
-## 5. Come verificare lo slice
+## 5. Integrazione mappe Leaflet + OpenStreetMap
+
+Per valorizzare i campi `latitude` / `longitude` di `locations`, integrata una mini-mappa interattiva nella pagina pubblica `tour-detail.php`.
+
+### Perché Leaflet e non Google Maps
+- **Leaflet 1.9.4** + **OpenStreetMap** sono completamente gratuiti, open source (BSD), senza API key né account
+- Funziona offline (file locali in `skins/tour/vendor/leaflet/`) — fondamentale per l'esame
+- ~160 KB totali (CSS + JS + immagini marker)
+- Google Maps richiede account Google Cloud con carta di credito, anche per il free tier
+
+### File scaricati
+```
+skins/tour/vendor/leaflet/
+├── leaflet.css           (~15 KB)
+├── leaflet.js            (~148 KB)
+└── images/
+    ├── marker-icon.png
+    ├── marker-icon-2x.png
+    └── marker-shadow.png
+```
+
+### Logica di caricamento condizionale
+La mappa appare **solo se** l'esperienza ha una `location_id` valorizzata con coordinate non NULL.
+In `tour-detail.php`:
+1. La query JOIN su `locations` include `l.latitude AS loc_lat, l.longitude AS loc_lng`
+2. Se entrambe sono valorizzate → costruisco `$mapHtml` (div + sezione titolo), `$mapHead` (link al CSS), `$mapJs` (script + init Leaflet)
+3. CSS Leaflet → iniettato nel placeholder `<[head]>` del frame
+4. JS Leaflet + init → iniettato nel placeholder `<[javascript]>` del frame (a fine `<body>`, dopo che il div esiste)
+5. Template `tour-detail.html` mostra la mappa con `<[if!empty has_map]><[map_html]><[/if!empty]>`
+
+Risultato: Leaflet viene caricato **solo nelle pagine che hanno una mappa da mostrare**, niente overhead per le altre pagine.
+
+### Inizializzazione mappa
+```js
+var m = L.map("exp-map").setView([lat, lng], 15);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    { attribution: "© OpenStreetMap contributors", maxZoom: 19 }
+).addTo(m);
+L.marker([lat, lng]).addTo(m).bindPopup(nomeLocation).openPopup();
+```
+
+I tile (le tessere della mappa) vengono caricati a runtime dai server OpenStreetMap (gratuito, con attribuzione obbligatoria — già inclusa).
+
+---
+
+## 6. Come verificare lo slice
 
 1. Esegui in phpMyAdmin le nuove istruzioni SQL (a partire da `-- Slice 3` in `schema.sql`)
 2. `/admin/locations.php` → crea una location (es. "Colosseo, Roma")
@@ -111,3 +156,4 @@ Aggiunte due voci nel menu CONTENUTO di `frame-private.html`:
 5. `/tour-detail.php?id=1` → la card mostra il luogo strutturato; sotto la descrizione compare la sezione "Le tue guide" con foto e bio
 6. Cancella la guida → la foto viene rimossa dal filesystem
 7. Cancella la location → `experiences.location_id` diventa NULL, la scheda mostra il testo libero (se valorizzato)
+8. Modifica la location del Colosseo aggiungendo coordinate (lat `41.8902`, lng `12.4924`) → ricarica `/tour-detail.php?id=1` → compare la sezione "Dove ci trovi" con mappa Leaflet interattiva e marker sul Colosseo

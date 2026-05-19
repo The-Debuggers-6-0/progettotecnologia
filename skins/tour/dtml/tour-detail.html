@@ -72,6 +72,13 @@
                     <a href="#" class="btn btn-primary btn-block py-3" style="font-size:1.1rem">Prenota ora</a>
                     <p class="text-muted text-center small mt-3">Le prenotazioni aprono presto</p>
                 </div>
+
+                <[if!empty has_map]>
+                <div class="mt-4">
+                    <[map_html]>
+                </div>
+                <[/if!empty]>
+
             </div>
         </div>
 

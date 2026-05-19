@@ -6,7 +6,8 @@ $id = (int)($_GET['id'] ?? 0);
 
 $stmt = db()->prepare(
     'SELECT e.*, c.name AS category_name,
-            l.name AS loc_name, l.city AS loc_city, l.address AS loc_address
+            l.name AS loc_name, l.city AS loc_city, l.address AS loc_address,
+            l.latitude AS loc_lat, l.longitude AS loc_lng
      FROM experiences e
      LEFT JOIN categories c ON c.id = e.category_id
      LEFT JOIN locations  l ON l.id  = e.location_id
@@ -88,6 +89,30 @@ foreach ($guideList as $g) {
     $guidesHtml .= '</div></div>';
 }
 
+// Mappa Leaflet: solo se la location ha coordinate valide
+$mapHtml = '';
+$mapHead = '';
+$mapJs   = '';
+if ($exp['loc_lat'] !== null && $exp['loc_lng'] !== null) {
+    $lat       = (float)$exp['loc_lat'];
+    $lng       = (float)$exp['loc_lng'];
+    $popupTxt  = addslashes($exp['loc_name'] . ' — ' . $exp['loc_city']);
+    $leafletBase = $config['base'] . '/skins/tour/vendor/leaflet';
+
+    $mapHead = '<link rel="stylesheet" href="' . $leafletBase . '/leaflet.css">';
+    $mapHtml = '<h2 class="section-title" style="font-size:1.5rem">Dove ci trovi</h2>'
+        . '<div id="exp-map" style="height:260px;border-radius:12px;overflow:hidden;border:1px solid #e5e5e5"></div>';
+    $mapJs = '<script src="' . $leafletBase . '/leaflet.js"></script>'
+        . '<script>'
+        . 'document.addEventListener("DOMContentLoaded",function(){'
+        . 'var m=L.map("exp-map").setView([' . $lat . ',' . $lng . '],15);'
+        . 'L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",'
+        . '{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(m);'
+        . 'L.marker([' . $lat . ',' . $lng . ']).addTo(m).bindPopup("' . $popupTxt . '").openPopup();'
+        . '});'
+        . '</script>';
+}
+
 $skin = new_page($config['skin']);
 $skin->setContent('title',     $title);
 $skin->setContent('year',      date('Y'));
@@ -95,6 +120,8 @@ $skin->setContent('base',      $config['base']);
 $skin->setContent('skin',      $config['skin']);
 $skin->setContent('is_logged', isset($_SESSION['user']['username']) ? '1' : '');
 $skin->setContent('user.name', $_SESSION['user']['name'] ?? '');
+$skin->setContent('head',      $mapHead);
+$skin->setContent('javascript',$mapJs);
 
 $block = new_block('tour-detail');
 $block->setContent('exp_title',       $title);
@@ -110,6 +137,8 @@ $block->setContent('tours_url',       $config['base'] . '/tours.php');
 $block->setContent('photos_html',     $photosHtml);
 $block->setContent('guides_html',     $guidesHtml);
 $block->setContent('has_guides',      $guidesHtml !== '' ? '1' : '');
+$block->setContent('map_html',        $mapHtml);
+$block->setContent('has_map',         $mapHtml !== '' ? '1' : '');
 
 $skin->setContent('body', $block->get());
 $skin->close();
