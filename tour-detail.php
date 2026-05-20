@@ -209,12 +209,12 @@ foreach ($reviewList as $r) {
     $date = (new DateTimeImmutable($r['created_at']))->format('d/m/Y');
     $reviewsHtml .= '<div style="padding:1.25rem 0;border-bottom:1px solid #f0f0f0">'
         . '<div class="d-flex justify-content-between align-items-center mb-1">'
-        . '<strong style="font-size:1.05rem">' . htmlspecialchars($r['name'] . ' ' . $r['surname']) . '</strong>'
-        . '<span class="text-muted small">' . $date . '</span>'
+        . '<strong style="font-size:1.2rem">' . htmlspecialchars($r['name'] . ' ' . $r['surname']) . '</strong>'
+        . '<span class="text-muted" style="font-size:1rem">' . $date . '</span>'
         . '</div>'
-        . '<div style="color:#f4a62a;font-size:1.3rem;margin-bottom:.4rem">' . $stars . '</div>';
+        . '<div style="color:#f4a62a;font-size:1.5rem;margin-bottom:.4rem">' . $stars . '</div>';
     if ($r['comment']) {
-        $reviewsHtml .= '<p class="mb-0" style="font-size:1rem">' . nl2br(htmlspecialchars($r['comment'])) . '</p>';
+        $reviewsHtml .= '<p class="mb-0" style="font-size:1.1rem">' . nl2br(htmlspecialchars($r['comment'])) . '</p>';
     }
     $reviewsHtml .= '</div>';
 }
@@ -224,32 +224,32 @@ $reviewFormHtml = '';
 if ($reviewSuccess) {
     $reviewFormHtml = '<div class="alert alert-success mt-4">' . htmlspecialchars($reviewSuccess) . '</div>';
 } elseif (!$userId) {
-    $reviewFormHtml = '<p class="text-muted mt-4"><a href="' . $config['base'] . '/login.php">Accedi</a> per lasciare una recensione.</p>';
+    $reviewFormHtml = '<p class="text-muted mt-4" style="font-size:1.1rem"><a href="' . $config['base'] . '/login.php">Accedi</a> per lasciare una recensione.</p>';
 } elseif ($hasReviewed) {
-    $reviewFormHtml = '<p class="text-muted mt-4">Hai già recensito questa esperienza.</p>';
+    $reviewFormHtml = '<p class="text-muted mt-4" style="font-size:1.1rem">Hai già recensito questa esperienza.</p>';
 } elseif (!$canReview) {
-    $reviewFormHtml = '<p class="text-muted mt-4">Prenota questa esperienza per poter lasciare una recensione.</p>';
+    $reviewFormHtml = '<p class="text-muted mt-4" style="font-size:1.1rem">Prenota questa esperienza per poter lasciare una recensione.</p>';
 } else {
     $errHtml = $reviewError
         ? '<div class="alert alert-danger mb-3">' . htmlspecialchars($reviewError) . '</div>'
         : '';
     $reviewFormHtml = '<div class="mt-4 p-4" style="background:#f8f9fa;border-radius:12px">'
-        . '<h5 class="mb-3">Lascia la tua recensione</h5>'
+        . '<h5 class="mb-3" style="font-size:1.3rem">Lascia la tua recensione</h5>'
         . $errHtml
         . '<form method="post">'
         . '<div class="mb-3">'
-        . '<label class="form-label fw-semibold">Voto</label>'
-        . '<div class="d-flex gap-2">';
+        . '<label class="form-label fw-semibold" style="font-size:1.1rem">Voto</label>'
+        . '<div class="d-flex gap-2" id="star-rating">';
     for ($i = 1; $i <= 5; $i++) {
-        $reviewFormHtml .= '<label style="cursor:pointer;font-size:1.6rem;color:#f4a62a">'
+        $reviewFormHtml .= '<label class="star-lbl" data-val="' . $i . '" style="cursor:pointer;font-size:1.8rem;color:#ccc">'
             . '<input type="radio" name="rating" value="' . $i . '" required style="display:none"> ★</label>';
     }
     $reviewFormHtml .= '</div></div>'
         . '<div class="mb-3">'
-        . '<label class="form-label fw-semibold">Commento <span class="text-muted fw-normal">(facoltativo)</span></label>'
-        . '<textarea name="comment" class="form-control" rows="3" placeholder="Racconta la tua esperienza..."></textarea>'
+        . '<label class="form-label fw-semibold" style="font-size:1.1rem">Commento <span class="text-muted fw-normal">(facoltativo)</span></label>'
+        . '<textarea name="comment" class="form-control" rows="3" placeholder="Racconta la tua esperienza..." style="font-size:1.1rem"></textarea>'
         . '</div>'
-        . '<button type="submit" class="btn btn-primary">Invia recensione</button>'
+        . '<button type="submit" class="btn btn-primary" style="font-size:1.1rem">Invia recensione</button>'
         . '</form></div>';
 }
 
@@ -287,11 +287,24 @@ $skin->setContent('user.name', $_SESSION['user']['name'] ?? '');
 $skin->setContent('head',      $mapHead);
 $smoothScrollJs = '<script>'
     . 'document.addEventListener("DOMContentLoaded",function(){'
+    // smooth scroll "Prenota ora"
     . 'document.querySelectorAll(".js-smooth-scroll").forEach(function(a){'
     . 'a.addEventListener("click",function(e){'
     . 'var t=document.getElementById("slots-section");'
     . 'if(t){e.preventDefault();t.scrollIntoView({behavior:"smooth",block:"start"});}'
-    . '});});});'
+    . '});});'
+    // stelle interattive
+    . 'var sr=document.getElementById("star-rating");'
+    . 'if(sr){'
+    . 'var lbls=sr.querySelectorAll(".star-lbl");'
+    . 'var sel=0;'
+    . 'function hl(n){lbls.forEach(function(l,i){l.style.color=i<n?"#f4a62a":"#ccc";});}'
+    . 'lbls.forEach(function(l,i){'
+    . 'l.addEventListener("mouseenter",function(){hl(i+1);});'
+    . 'l.addEventListener("mouseleave",function(){hl(sel);});'
+    . 'l.addEventListener("click",function(){sel=i+1;hl(sel);});'
+    . '});}'
+    . '});'
     . '</script>';
 $skin->setContent('javascript', $smoothScrollJs . $mapJs);
 

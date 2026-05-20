@@ -18,7 +18,7 @@ $skin->setContent('title', 'Recensioni');
 $skin->setContent('base',  $config['base']);
 $skin->setContent('skin',  $config['admin_skin']);
 
-$block = new_block('admin/reviews-list');
+$block = new_block('reviews-list');
 
 $block->setContent('has_rows', count($rows) ? '1' : '');
 

@@ -50,6 +50,8 @@
 | File | Modifica |
 |---|---|
 | `skins/admin/dtml/frame-private.html` | Aggiunta voce "Recensioni" (icona `fas fa-star`) nel menu CONTENUTO della sidebar, dopo "Prenotazioni" |
+| `admin/index.php` | Aggiunto conteggio recensioni totali (`$totalReviews`) |
+| `skins/admin/dtml/dashboard.html` | Aggiunta card "Recensioni" (icona arancione `fas fa-star`, link a `admin/reviews.php`) nella riga "Disponibilità & Utenti" |
 
 ---
 
@@ -127,7 +129,18 @@ Mostrata nell'intestazione "Recensioni" solo se c'è almeno una recensione (`has
 
 ---
 
-## 5. Come verificare lo slice
+## 5. Problemi risolti
+
+### Nome blocco admin errato
+`admin/reviews.php` usava `new_block('admin/reviews-list')`, che causava la ricerca del file in `skins/admin/dtml/admin/reviews-list.html` (path inesistente).
+
+**Causa:** `new_block()` in `page.inc.php` costruisce il path come `skins/{skin}/dtml/{nome}` — il prefisso `admin/` nel nome si sommava alla skin `admin` già nel path.
+
+**Soluzione:** rinominato in `new_block('reviews-list')`, coerente con tutti gli altri blocchi admin (`bookings-list`, `experiences-list`, ecc.).
+
+---
+
+## 6. Come verificare lo slice
 
 1. Esegui in phpMyAdmin le istruzioni SQL (a partire da `-- Slice 6` in `schema.sql`)
 2. `/tour-detail.php?id=1` — scroll fino a "Recensioni": compare "Nessuna recensione ancora. Sii il primo!"

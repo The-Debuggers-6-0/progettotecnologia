@@ -98,8 +98,14 @@
                         <div class="widget">
                             <h3 class="heading">Account</h3>
                             <ul class="links list-unstyled">
+                                <[if!empty is_logged]>
+                                <li><a href="<[base]>/account.php">Il mio account</a></li>
+                                <li><a href="<[base]>/logout.php">Esci</a></li>
+                                <[/if!empty]>
+                                <[ifempty is_logged]>
                                 <li><a href="<[base]>/login.php">Accedi</a></li>
                                 <li><a href="<[base]>/register.php">Registrati</a></li>
+                                <[/ifempty]>
                             </ul>
                         </div>
                     </div>

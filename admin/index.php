@@ -14,6 +14,7 @@ $totalGuides      = db()->query('SELECT COUNT(*) FROM guides WHERE is_active = 1
 $totalSlots       = db()->query('SELECT COUNT(*) FROM time_slots WHERE is_active = 1 AND start_datetime >= NOW()')->fetchColumn();
 $totalBookings    = db()->query('SELECT COUNT(*) FROM bookings')->fetchColumn();
 $pendingBookings  = db()->query("SELECT COUNT(*) FROM bookings WHERE status = 'pending'")->fetchColumn();
+$totalReviews     = db()->query('SELECT COUNT(*) FROM reviews')->fetchColumn();
 
 $skin = new_page($config['admin_skin'], 'frame-private');
 $skin->setContent('title', 'Dashboard');
@@ -33,6 +34,7 @@ $block->setContent('total_guides',     $totalGuides);
 $block->setContent('total_slots',      $totalSlots);
 $block->setContent('total_bookings',   $totalBookings);
 $block->setContent('pending_bookings', $pendingBookings);
+$block->setContent('total_reviews',    $totalReviews);
 
 $skin->setContent('body', $block->get());
 $skin->close();
