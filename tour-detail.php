@@ -132,6 +132,127 @@ foreach ($slotList as $sl) {
         . '</div>';
 }
 
+// Recensioni — controllo permessi
+$userId     = $_SESSION['user']['id'] ?? null;
+$hasReviewed = false;
+$canReview   = false;
+
+if ($userId) {
+    $chk = db()->prepare('SELECT 1 FROM reviews WHERE experience_id = ? AND user_id = ?');
+    $chk->execute([$id, $userId]);
+    $hasReviewed = (bool)$chk->fetch();
+
+    if (!$hasReviewed) {
+        $chk2 = db()->prepare(
+            'SELECT 1 FROM bookings b
+             JOIN time_slots ts ON ts.id = b.time_slot_id
+             WHERE ts.experience_id = ? AND b.user_id = ? AND b.status = "confirmed"
+             LIMIT 1'
+        );
+        $chk2->execute([$id, $userId]);
+        $canReview = (bool)$chk2->fetch();
+    }
+}
+
+// Gestione POST nuova recensione
+$reviewError   = '';
+$reviewSuccess = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['rating'])) {
+    if (!$userId) {
+        header('Location: ' . $config['base'] . '/login.php');
+        exit;
+    }
+    $rating  = (int)($_POST['rating'] ?? 0);
+    $comment = trim($_POST['comment'] ?? '');
+
+    if ($rating < 1 || $rating > 5) {
+        $reviewError = 'Seleziona un voto da 1 a 5.';
+    } elseif (!$canReview) {
+        $reviewError = 'Puoi recensire solo esperienze che hai prenotato e confermato.';
+    } else {
+        try {
+            $ins = db()->prepare(
+                'INSERT INTO reviews (experience_id, user_id, rating, comment) VALUES (?, ?, ?, ?)'
+            );
+            $ins->execute([$id, $userId, $rating, $comment ?: null]);
+            $hasReviewed   = true;
+            $canReview     = false;
+            $reviewSuccess = 'Grazie per la tua recensione!';
+        } catch (PDOException $e) {
+            $reviewError = 'Hai già recensito questa esperienza.';
+        }
+    }
+}
+
+// Query recensioni
+$rstmt = db()->prepare(
+    'SELECT r.rating, r.comment, r.created_at, u.name, u.surname
+     FROM reviews r
+     JOIN users u ON u.id = r.user_id
+     WHERE r.experience_id = ?
+     ORDER BY r.created_at DESC'
+);
+$rstmt->execute([$id]);
+$reviewList  = $rstmt->fetchAll();
+$reviewCount = count($reviewList);
+$avgRating   = $reviewCount > 0
+    ? round(array_sum(array_column($reviewList, 'rating')) / $reviewCount, 1)
+    : 0;
+
+// Costruisce HTML recensioni
+$reviewsHtml = '';
+foreach ($reviewList as $r) {
+    $stars = '';
+    for ($i = 1; $i <= 5; $i++) {
+        $stars .= $i <= $r['rating'] ? '★' : '☆';
+    }
+    $date = (new DateTimeImmutable($r['created_at']))->format('d/m/Y');
+    $reviewsHtml .= '<div style="padding:1.25rem 0;border-bottom:1px solid #f0f0f0">'
+        . '<div class="d-flex justify-content-between align-items-center mb-1">'
+        . '<strong style="font-size:1.05rem">' . htmlspecialchars($r['name'] . ' ' . $r['surname']) . '</strong>'
+        . '<span class="text-muted small">' . $date . '</span>'
+        . '</div>'
+        . '<div style="color:#f4a62a;font-size:1.3rem;margin-bottom:.4rem">' . $stars . '</div>';
+    if ($r['comment']) {
+        $reviewsHtml .= '<p class="mb-0" style="font-size:1rem">' . nl2br(htmlspecialchars($r['comment'])) . '</p>';
+    }
+    $reviewsHtml .= '</div>';
+}
+
+// Costruisce HTML form recensione
+$reviewFormHtml = '';
+if ($reviewSuccess) {
+    $reviewFormHtml = '<div class="alert alert-success mt-4">' . htmlspecialchars($reviewSuccess) . '</div>';
+} elseif (!$userId) {
+    $reviewFormHtml = '<p class="text-muted mt-4"><a href="' . $config['base'] . '/login.php">Accedi</a> per lasciare una recensione.</p>';
+} elseif ($hasReviewed) {
+    $reviewFormHtml = '<p class="text-muted mt-4">Hai già recensito questa esperienza.</p>';
+} elseif (!$canReview) {
+    $reviewFormHtml = '<p class="text-muted mt-4">Prenota questa esperienza per poter lasciare una recensione.</p>';
+} else {
+    $errHtml = $reviewError
+        ? '<div class="alert alert-danger mb-3">' . htmlspecialchars($reviewError) . '</div>'
+        : '';
+    $reviewFormHtml = '<div class="mt-4 p-4" style="background:#f8f9fa;border-radius:12px">'
+        . '<h5 class="mb-3">Lascia la tua recensione</h5>'
+        . $errHtml
+        . '<form method="post">'
+        . '<div class="mb-3">'
+        . '<label class="form-label fw-semibold">Voto</label>'
+        . '<div class="d-flex gap-2">';
+    for ($i = 1; $i <= 5; $i++) {
+        $reviewFormHtml .= '<label style="cursor:pointer;font-size:1.6rem;color:#f4a62a">'
+            . '<input type="radio" name="rating" value="' . $i . '" required style="display:none"> ★</label>';
+    }
+    $reviewFormHtml .= '</div></div>'
+        . '<div class="mb-3">'
+        . '<label class="form-label fw-semibold">Commento <span class="text-muted fw-normal">(facoltativo)</span></label>'
+        . '<textarea name="comment" class="form-control" rows="3" placeholder="Racconta la tua esperienza..."></textarea>'
+        . '</div>'
+        . '<button type="submit" class="btn btn-primary">Invia recensione</button>'
+        . '</form></div>';
+}
+
 // Mappa Leaflet: solo se la location ha coordinate valide
 $mapHtml = '';
 $mapHead = '';
@@ -192,6 +313,11 @@ $block->setContent('slots_html',      $slotsHtml);
 $block->setContent('has_slots',       $slotsHtml !== '' ? '1' : '');
 $block->setContent('map_html',        $mapHtml);
 $block->setContent('has_map',         $mapHtml !== '' ? '1' : '');
+$block->setContent('reviews_html',    $reviewsHtml);
+$block->setContent('has_reviews',     $reviewsHtml !== '' ? '1' : '');
+$block->setContent('review_count',    (string)$reviewCount);
+$block->setContent('avg_rating',      $avgRating > 0 ? number_format($avgRating, 1) : '');
+$block->setContent('review_form',     $reviewFormHtml);
 
 $skin->setContent('body', $block->get());
 $skin->close();

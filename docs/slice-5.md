@@ -200,7 +200,7 @@ Le tabelle e i bottoni dell'area admin presentavano stili disomogenei. Tutto all
 5. Form prenotazione: cambia numero partecipanti → campi nome/cognome si aggiungono dinamicamente, totale si aggiorna in tempo reale
 6. Compila e conferma → `/booking-success.php?id=1` con riepilogo
 7. `/tour-detail.php?id=1` → il badge dello slot mostra i posti diminuiti
-8. `/admin/bookings.php` → la prenotazione è in lista con stato "In attesa"
-9. Click modifica → cambia stato a "Confermata" o "Cancellata"
+8. `/admin/bookings.php` → la prenotazione è in lista con stato "Confermata" (auto-confirm)
+9. Click modifica → cambia stato a "Cancellata" se necessario (admin può modificarlo manualmente)
 10. Cancellazione → i posti vengono liberati (badge slot torna a +N)
 11. Eliminazione prenotazione → booked_count decrementato, slot torna disponibile

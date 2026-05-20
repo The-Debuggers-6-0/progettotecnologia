@@ -164,3 +164,17 @@ CREATE TABLE booking_participants (
     FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
 );
 
+-- Slice 6: reviews
+
+CREATE TABLE reviews (
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    experience_id INT      NOT NULL,
+    user_id       INT      NOT NULL,
+    rating        TINYINT  NOT NULL,
+    comment       TEXT,
+    created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uq_user_exp (experience_id, user_id),
+    FOREIGN KEY (experience_id) REFERENCES experiences(id) ON DELETE CASCADE,
+    FOREIGN KEY (user_id)       REFERENCES users(id)       ON DELETE CASCADE,
+    CONSTRAINT chk_rating CHECK (rating BETWEEN 1 AND 5)
+);

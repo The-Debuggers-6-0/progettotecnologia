@@ -49,6 +49,7 @@ Riscritto con la struttura HTML di AdminLTE 3:
 | Guide | `fas fa-hiking` | Slice 3 |
 | Slot / Calendario | `fas fa-calendar-alt` | Slice 4 |
 | Prenotazioni | `fas fa-calendar-check` | Slice 5 |
+| Recensioni | `fas fa-star` | Slice 6 |
 
 ### `skins/admin/css/style.css`
 Layer di compatibilità Bootstrap 5 → Bootstrap 4, ampliato slice per slice:

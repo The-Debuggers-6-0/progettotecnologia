@@ -1,0 +1,51 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Recensioni</h1>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <[if!empty has_rows]>
+        <table class="table table-hover mb-0 align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>#</th>
+                    <th>Esperienza</th>
+                    <th>Utente</th>
+                    <th class="text-center">Voto</th>
+                    <th>Commento</th>
+                    <th>Data</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <[foreach]>
+                <tr>
+                    <td class="text-muted small">#<[rev_id]></td>
+                    <td class="fw-semibold"><[rev_exp]></td>
+                    <td>
+                        <span class="fw-semibold"><[rev_user]></span><br>
+                        <span class="text-muted small"><[rev_email]></span>
+                    </td>
+                    <td class="text-center">
+                        <span style="color:#f4a62a;font-size:1.1rem"><[rev_stars]></span><br>
+                        <span class="text-muted small"><[rev_rating]>/5</span>
+                    </td>
+                    <td class="text-muted small" style="max-width:250px"><[rev_comment]></td>
+                    <td class="text-muted small"><[rev_date]></td>
+                    <td class="text-end">
+                        <a href="<[rev_del_url]>" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Eliminare questa recensione?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <[/foreach]>
+            </tbody>
+        </table>
+        <[/if!empty]>
+
+        <[ifempty has_rows]>
+        <p class="text-muted text-center py-4">Nessuna recensione ancora.</p>
+        <[/ifempty]>
+    </div>
+</div>
