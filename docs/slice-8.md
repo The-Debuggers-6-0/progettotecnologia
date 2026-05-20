@@ -111,7 +111,7 @@ La tabella `experiences` contiene **due** colonne per la località: `location` (
 ## 4. Come verificare lo slice
 
 1. **Reset + popolamento DB:** in phpMyAdmin eseguire `sql/clean.sql`, poi `sql/seed.sql`. Verificare che le tabelle siano popolate (7 esperienze, 5 guide, 26 slot, 8 recensioni, ecc.).
-2. **Foto:** visitare `http://localhost/progettotecnologia/install-photos.php` e `.../install-guide-photos.php`. Controllare che i file appaiano in `uploads/experiences/` e `uploads/guides/` e che il DB sia aggiornato.
+2. **Foto:** controllare che le immagini siano presenti in `uploads/experiences/` e `uploads/guides/` e referenziate nel DB (`experience_photos`, `guides.photo_filename`). Gli script `install-photos.php` / `install-guide-photos.php` erano strumenti una-tantum per il download iniziale da Unsplash: una volta scaricate le foto sono stati rimossi dalla root del progetto (come previsto).
 3. **Carosello homepage:** le frecce ← → sono visibili subito (senza hover), i titoli sono bianchi e leggibili su ogni foto, l'altezza non "salta" durante lo scorrimento, le immagini si schiariscono al passaggio del mouse.
 4. **Leggibilità:** homepage, pagina prenotazione, conferma e footer mostrano i testi ingranditi.
 5. **Recensioni:** nelle pagine di dettaglio delle esperienze #4 (Museo Napoli), #6 (Sentiero Dei) e #7 (Centro Roma) compaiono recensioni con rating basso (1–3★), così la media e la distribuzione delle stelle risultano realistiche e non solo positive.
