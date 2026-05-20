@@ -95,7 +95,7 @@ $(function(){
 		if ( $('.owl-3-slider').length > 0 ) {
 			var owl3 = $('.owl-3-slider').owlCarousel({
 				loop: true,
-				autoHeight: true,
+				autoHeight: false,
 				margin: 10,
 				autoplay: true,
 				smartSpeed: 700,
