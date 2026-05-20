@@ -236,4 +236,16 @@ INSERT INTO reviews (experience_id, user_id, rating, comment) VALUES
  'Sofia è una guida incredibile, appassionata e coltissima. Ha reso ogni dipinto vivo con storie che non trovi sui libri. La Nascita di Venere vista con lei è stata un\'emozione vera. Da fare assolutamente.'),
 
 (2, @giulia_id, 4,
- 'Venezia in gondola è magica. Abbiamo percorso canali che non avremmo mai trovato da soli. Il gondoliere era simpaticissimo. Unico neo: un po\' corto, avrei voluto continuare ancora!');
+ 'Venezia in gondola è magica. Abbiamo percorso canali che non avremmo mai trovato da soli. Il gondoliere era simpaticissimo. Unico neo: un po\' corto, avrei voluto continuare ancora!'),
+
+(4, @mario_id, 2,
+ 'Museo interessante ma visita deludente. Eravamo davvero troppi nel gruppo, faticavo a sentire la guida e a vedere i reperti. Alcune sale erano chiuse senza preavviso. Mi aspettavo di meglio per il prezzo pagato.'),
+
+(7, @mario_id, 3,
+ 'Tour nella media. La guida era preparata ma il ritmo troppo veloce: corsa da una piazza all\'altra senza tempo per fermarsi a fotografare. Il gruppo era enorme. Carino ma niente di indimenticabile.'),
+
+(6, @giulia_id, 1,
+ 'Esperienza pessima. Partiti nonostante il meteo incerto, a metà sentiero pioggia battente e nessun piano alternativo. Organizzazione scadente, ci siamo sentiti abbandonati. Sconsigliato, soprattutto in caso di previsioni dubbie.'),
+
+(4, @giulia_id, 3,
+ 'Reperti bellissimi ma il Gabinetto Segreto era chiuso il giorno della nostra visita e non ce l\'avevano detto al momento della prenotazione. La guida si è impegnata, ma resta l\'amaro in bocca. Sufficiente.');

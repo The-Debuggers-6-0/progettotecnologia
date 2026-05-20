@@ -32,21 +32,21 @@
                     <div class="card-body" style="padding:1.75rem 2rem">
                         <div class="d-flex justify-content-between align-items-start">
                             <div>
-                                <p class="text-muted mb-1" style="font-size:1rem;text-transform:uppercase;letter-spacing:.06em">Slot selezionato</p>
-                                <h4 class="mb-2" style="font-size:1.6rem;font-weight:700"><[exp_title]></h4>
-                                <p class="mb-1" style="font-size:1.2rem">
-                                    <i class="flaticon-clock text-primary" style="font-size:1rem"></i>
+                                <p class="text-muted mb-1" style="font-size:1.15rem;text-transform:uppercase;letter-spacing:.06em">Slot selezionato</p>
+                                <h4 class="mb-2" style="font-size:2rem;font-weight:700"><[exp_title]></h4>
+                                <p class="mb-1" style="font-size:1.4rem">
+                                    <i class="flaticon-clock text-primary" style="font-size:1.1rem"></i>
                                     <strong><[slot_date]></strong>
                                     <span class="text-muted ms-1">alle <[slot_time]></span>
                                 </p>
                                 <[if!empty has_slot_notes]>
-                                <p class="mb-0 text-muted" style="font-size:1.05rem">
-                                    <i class="flaticon-pin" style="font-size:.95rem"></i> <[slot_notes]>
+                                <p class="mb-0 text-muted" style="font-size:1.2rem">
+                                    <i class="flaticon-pin" style="font-size:1.1rem"></i> <[slot_notes]>
                                 </p>
                                 <[/if!empty]>
                             </div>
                             <div class="text-end" style="min-width:120px">
-                                <span class="badge bg-success" style="font-size:1.05rem;padding:.5em 1em">
+                                <span class="badge bg-success" style="font-size:1.2rem;padding:.5em 1em">
                                     <[slot_available]> posti
                                 </span>
                             </div>
@@ -58,15 +58,15 @@
                 <form method="post">
 
                     <div class="mb-4">
-                        <label class="fw-semibold mb-2" style="font-size:1.15rem">
+                        <label class="fw-semibold mb-2" style="font-size:1.35rem">
                             Numero di partecipanti
                         </label>
                         <div class="d-flex align-items-center" style="gap:1.25rem">
                             <select name="participants_count" id="part-count"
-                                    class="form-select" style="max-width:120px;flex-shrink:0;font-size:1.05rem">
+                                    class="form-select" style="max-width:140px;flex-shrink:0;font-size:1.2rem">
                                 <[count_options]>
                             </select>
-                            <p class="text-muted mb-0" style="font-size:1rem">
+                            <p class="text-muted mb-0" style="font-size:1.15rem">
                                 Per gruppi &gt; 10 persone scrivici a
                                 <a href="mailto:info@esperienze-tour.it">info@esperienze-tour.it</a>
                             </p>
@@ -77,23 +77,23 @@
                     <div id="part-box" class="mb-4"></div>
 
                     <div class="mb-4">
-                        <label class="fw-semibold mb-2" style="font-size:1.15rem">
+                        <label class="fw-semibold mb-2" style="font-size:1.35rem">
                             Note aggiuntive <span class="text-muted fw-normal">(facoltativo)</span>
                         </label>
-                        <textarea name="notes" class="form-control" rows="2"
+                        <textarea name="notes" class="form-control" rows="2" style="font-size:1.1rem"
                                   placeholder="Es. allergie, esigenze particolari…"><[notes_val]></textarea>
                     </div>
 
                     <!-- Riepilogo prezzo -->
                     <div class="mb-4 p-3 rounded" style="background:#f8f9fa;border:1px solid #e9ecef">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span style="font-size:1.15rem">
+                            <span style="font-size:1.35rem">
                                 Totale &mdash;
-                                <span class="text-muted" style="font-size:1.05rem">
+                                <span class="text-muted" style="font-size:1.2rem">
                                     &euro;<[exp_price]> &times; <span id="part-disp">1</span> pers.
                                 </span>
                             </span>
-                            <span class="fw-bold" style="font-size:1.9rem;color:#1A374D">
+                            <span class="fw-bold" style="font-size:2.2rem;color:#1A374D">
                                 &euro;<span id="tot-price">...</span>
                             </span>
                         </div>
@@ -103,7 +103,7 @@
                         Conferma prenotazione
                     </button>
 
-                    <p class="text-muted text-center small mt-3">
+                    <p class="text-muted text-center mt-3" style="font-size:1.1rem">
                         Completando la prenotazione accetti i termini del servizio.
                     </p>
 

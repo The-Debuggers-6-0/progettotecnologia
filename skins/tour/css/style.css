@@ -1333,7 +1333,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   font-size: 20px; }
 
 .site-footer {
-  font-size: 14px;
+  font-size: 18px;
   color: #777;
   line-height: 1.6; }
   .site-footer .inner {
@@ -1353,7 +1353,7 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
   .site-footer .widget {
     margin-bottom: 30px; }
     .site-footer .widget h3 {
-      font-size: 14px;
+      font-size: 20px;
       margin-bottom: 20px;
       color: #000000;
       font-family: "Inter", sans-serif; }

@@ -145,6 +145,8 @@ I font-size delle card esperienze, della pagina prenotazione e della pagina di c
 | `skins/tour/dtml/booking-success.html` | Dettagli riepilogo | `.98rem` | `1.1rem` |
 | `skins/tour/dtml/booking-success.html` | Prezzo totale | `1.2rem` | `1.4rem` |
 
+> **Nota:** alcuni di questi valori sono stati ulteriormente aumentati nello **Slice 8** (rifinitura UI), insieme ad altri ritocchi su homepage, footer e filtri. I valori in questa tabella fotografano lo stato a fine Slice 5; per quelli correnti vedi `docs/slice-8.md` (sezione "Rifinitura UI").
+
 ### Header hero centralizzato
 
 Le dimensioni dell'hero banner erano definite con stili inline in ogni singolo template, con valori inconsistenti tra le pagine (es. `booking.html` usava `2.6rem` invece di `3.2rem`).
