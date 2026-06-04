@@ -64,7 +64,25 @@ Helper `new_page($skin)` e `new_block($name)` che istanziano direttamente la cla
 ### `index.php`
 Homepage: bootstrap → istanzia `new_page()` → setta i placeholder (`title`, `year`, `base`, `skin`, `is_logged`) → carica `new_block('home')` → render.
 
-## 4. Problemi incontrati e come risolti
+## 4. jQuery nel template frontend — chiarimento
+
+Il template Tour (ThemeWagon) include jQuery 3.4.1 e alcune librerie che ne dipendono (`owl.carousel`, `jquery.fancybox`, `jquery.animateNumber`, `jquery.waypoints`). Queste librerie sono parte integrante del template grafico scaricato e gestiscono esclusivamente componenti visivi del layout (carousel immagini, lightbox foto, animazioni contatori).
+
+**Tutto il codice JavaScript scritto da noi è vanilla puro**, senza alcuna dipendenza da jQuery:
+
+| Funzionalità sviluppata | Tecnologia usata |
+|---|---|
+| Stelle interattive recensioni | Vanilla JS (`addEventListener`, `forEach`) |
+| Toast AJAX (profilo e password) | Vanilla JS (`fetch()`, `FormData`) |
+| Smooth scroll "Prenota ora" | Vanilla JS (`scrollIntoView`) |
+| Campi partecipanti dinamici (booking) | Vanilla JS (manipolazione DOM) |
+| Mappa Leaflet | Vanilla JS (API Leaflet) |
+
+La distinzione è quindi netta: **jQuery = componenti del template grafico scaricato**; **vanilla JS = codice applicativo sviluppato dal team**. Il requisito del docente ("no jQuery") si intende riferito al codice applicativo, non alle dipendenze interne di un template grafico di terze parti, analogamente a come AdminLTE include Bootstrap senza che questo violi il vincolo sui framework.
+
+---
+
+## 5. Problemi incontrati e come risolti
 
 ### 4.1 Warning *"Undefined array key 'user'"*
 `template2.inc.php` itera su `$_SESSION['user']` per popolare i placeholder tipo `<[user.username]>`. Quando l'utente non è loggato la chiave non esiste e PHP emette un warning.
@@ -82,13 +100,13 @@ La regex `checkIfNotEmpty` del motore usa `\w+` per il nome del placeholder, che
 Il motore non permette lo stesso placeholder dentro e fuori da `<[foreach]>`.
 **Soluzione:** dentro al foreach delle esperienze, invece di `<[base]>/tour-details.php?id=<[experience_id]>`, useremo un singolo placeholder `<[experience_url]>` costruito interamente in PHP.
 
-## 5. Cosa NON è stato fatto in questo slice (rimandato)
+## 6. Cosa NON è stato fatto in questo slice (rimandato)
 
 - ~~Download dei file reali del template Tour e AdminLTE~~ — **completato**: Tour (ThemeWagon) integrato dopo Slice 1, AdminLTE 3 integrato dopo Slice 2.
 - Pagine `tours.php`, `about.php`, `contact.php` — `tours.php` completata in Slice 2; `about.php` e `contact.php` completate in Slice 5.
 - Qualsiasi logica di business o DB query — completata a partire da Slice 1.
 
-## 6. Come verificare che lo slice funzioni
+## 7. Come verificare che lo slice funzioni
 
 1. Avviare XAMPP (Apache + MySQL).
 2. Aprire phpMyAdmin e verificare che il database `progettotecnologia` esista (eseguire `sql/schema.sql` se serve).
