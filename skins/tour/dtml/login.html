@@ -16,26 +16,26 @@
             <div class="col-md-6 col-lg-5">
 
                 <[if!empty error]>
-                <div class="alert alert-danger"><[error]></div>
+                <div class="alert alert-danger" style="font-size:1.1rem"><[error]></div>
                 <[/if!empty]>
 
                 <form method="post" action="">
                     <div class="mb-3">
-                        <label for="username" class="text-black">Username</label>
+                        <label for="username" class="text-black" style="font-size:1.15rem">Username</label>
                         <input type="text" class="form-control" id="username"
-                               name="username" value="<[username]>" required autofocus>
+                               name="username" value="<[username]>" required autofocus style="font-size:1.15rem">
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="text-black">Password</label>
+                        <label for="password" class="text-black" style="font-size:1.15rem">Password</label>
                         <input type="password" class="form-control" id="password"
-                               name="password" required>
+                               name="password" required style="font-size:1.15rem">
                     </div>
                     <div class="mb-3">
-                        <input type="submit" class="btn btn-primary btn-block" value="Entra">
+                        <input type="submit" class="btn btn-primary btn-block" value="Entra" style="font-size:1.15rem">
                     </div>
                 </form>
 
-                <p class="text-center mt-3">
+                <p class="text-center mt-3" style="font-size:1.15rem">
                     Non hai un account? <a href="<[base]>/register.php">Registrati</a>
                 </p>
 
