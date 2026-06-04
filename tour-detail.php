@@ -4,6 +4,7 @@ require_once __DIR__ . '/include/bootstrap.inc.php';
 
 $id = (int)($_GET['id'] ?? 0);
 
+// Query principale esperienza + category + location
 $stmt = db()->prepare(
     'SELECT e.*, c.name AS category_name,
             l.name AS loc_name, l.city AS loc_city, l.address AS loc_address,
@@ -21,6 +22,7 @@ if (!$exp) {
     die('Esperienza non trovata.');
 }
 
+// Foto esperienza
 $photos = db()->prepare(
     'SELECT filename FROM experience_photos
      WHERE experience_id = ? ORDER BY is_cover DESC, sort_order ASC'
@@ -53,18 +55,21 @@ if (count($photoList) > 0) {
     $photosHtml = '<img src="' . $url . '" alt="' . $title . '" class="img-fluid rounded-20 mb-4">';
 }
 
-// Location strutturata: preferisce il record su locations, poi il testo libero
+// Location strutturata (Nome, Città)
 $locationDisplay = '';
 if ($exp['loc_name']) {
     $locationDisplay = htmlspecialchars($exp['loc_name'] . ', ' . $exp['loc_city']);
     if ($exp['loc_address']) {
         $locationDisplay .= ' — ' . htmlspecialchars($exp['loc_address']);
     }
+
+// Se non c'è una location strutturata, mostra il testo libero se presente
 } elseif ($exp['location']) {
     $locationDisplay = htmlspecialchars($exp['location']);
 }
 
-// Guide HTML — costruito in PHP (no foreach nel template)
+// Guida/e HTML — costruito in PHP (no foreach nel template - placeholder unico), per evitare conflitti con altri foreach
+// Se ci sono più guide, le mostriamo tutte in elenco, altrimenti mostriamo solo la guida singola
 $guidesHtml = '';
 foreach ($guideList as $g) {
     $photo = $g['photo_filename']
@@ -199,7 +204,7 @@ $avgRating   = $reviewCount > 0
     ? round(array_sum(array_column($reviewList, 'rating')) / $reviewCount, 1)
     : 0;
 
-// Costruisce HTML recensioni
+// HTML recensioni
 $reviewsHtml = '';
 foreach ($reviewList as $r) {
     $stars = '';
@@ -219,7 +224,7 @@ foreach ($reviewList as $r) {
     $reviewsHtml .= '</div>';
 }
 
-// Costruisce HTML form recensione
+// HTML form recensione
 $reviewFormHtml = '';
 if ($reviewSuccess) {
     $reviewFormHtml = '<div class="alert alert-success mt-4">' . htmlspecialchars($reviewSuccess) . '</div>';

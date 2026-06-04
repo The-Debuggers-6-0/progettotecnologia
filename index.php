@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/include/bootstrap.inc.php';
 
+//Prendo i 6 tour più recenti per la home
 $featured = db()->query(
     'SELECT e.id, e.title, e.price, e.location,
             p.filename AS cover

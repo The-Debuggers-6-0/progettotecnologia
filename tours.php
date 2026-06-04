@@ -6,6 +6,7 @@ $catId = isset($_GET['cat']) ? (int)$_GET['cat'] : 0;
 
 $categories = db()->query('SELECT id, name FROM categories ORDER BY name')->fetchAll();
 
+// Se è stata selezionata una categoria, filtro per quella categoria, altrimenti prende tutte le esperienze
 if ($catId > 0) {
     $stmt = db()->prepare(
         'SELECT e.id, e.title, e.slug, e.short_description, e.price, e.location,
