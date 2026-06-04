@@ -35,7 +35,7 @@ $config = [
     'cache_mode'    => NONE,           // NONE durante lo sviluppo
     'cache_timeout' => 600,
 
-    /* --- Lingua (no multilingua per ora) ------------------------- */
+    /* --- Lingua ------------------------- */
     'languages'        => [],
     'currentlanguage'  => 'it',
     'currenttab'       => '',

@@ -21,8 +21,12 @@ function db(): PDO {
     $dsn = "mysql:host={$c['host']};port={$c['port']};dbname={$c['name']};charset={$c['charset']}";
 
     $pdo = new PDO($dsn, $c['user'], $c['pass'], [
+        //Gestione errori tramite eccezioni: se c'è un errore nella query, viene lanciata un'eccezione invece di restituire false.
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        //I dati tornano con il nome della colonna come chiave invece di un numero — molto più leggibile.
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        // PHP manda la query e i dati separati a MySQL,
+        // invece di sostituire i dati nella query come stringa: più sicuro contro SQL injection e più efficiente.
         PDO::ATTR_EMULATE_PREPARES   => false,
     ]);
 
