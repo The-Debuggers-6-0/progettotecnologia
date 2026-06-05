@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-1">Box Homepage</h1>
+        <p class="text-muted mb-0">I riquadri con icona mostrati nella homepage.</p>
+    </div>
+    <a href="<[new_url]>" class="btn btn-primary btn-sm"><i class="fas fa-plus"></i> Nuovo box</a>
+</div>
+
+<div class="card">
+    <div class="card-body p-0">
+        <[if!empty has_rows]>
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th class="text-center" style="width:70px;">Icona</th>
+                    <th>Titolo</th>
+                    <th>Testo</th>
+                    <th class="text-center" style="width:80px;">Ordine</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <[foreach]>
+                <tr>
+                    <td class="text-center"><span class="<[feat_icon]>" style="font-size:1.8rem;color:#1A374D;"></span></td>
+                    <td class="fw-semibold"><[feat_title]></td>
+                    <td class="text-muted"><[feat_description]></td>
+                    <td class="text-center"><span class="badge bg-secondary"><[feat_order]></span></td>
+                    <td class="text-end">
+                        <a href="<[feat_edit_url]>" class="btn btn-sm btn-outline-secondary me-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="<[feat_delete_url]>" class="btn btn-sm btn-outline-danger"
+                           onclick="return confirm('Eliminare questo box?')">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                <[/foreach]>
+            </tbody>
+        </table>
+        <[/if!empty]>
+
+        <[ifempty has_rows]>
+        <p class="text-muted text-center py-4">Nessun box. <a href="<[new_url]>">Crea il primo</a>.</p>
+        <[/ifempty]>
+    </div>
+</div>

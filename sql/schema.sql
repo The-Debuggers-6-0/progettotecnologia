@@ -164,6 +164,16 @@ CREATE TABLE booking_participants (
     FOREIGN KEY (booking_id) REFERENCES bookings(id) ON DELETE CASCADE
 );
 
+-- Slice 9: home_features (box "Perché sceglierci" gestibili da backoffice)
+
+CREATE TABLE home_features (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    icon        VARCHAR(100) NOT NULL DEFAULT 'flaticon-house',
+    title       VARCHAR(150) NOT NULL,
+    description VARCHAR(500),
+    sort_order  INT          NOT NULL DEFAULT 0
+);
+
 -- Slice 6: reviews
 
 CREATE TABLE reviews (

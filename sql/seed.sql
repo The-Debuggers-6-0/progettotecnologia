@@ -1,14 +1,32 @@
 -- =============================================================
 --  seed.sql — dati di esempio per Esperienze & Tour
---  Eseguire DOPO clean.sql su database progettotecnologia
+--  Eseguibile sia su schema appena creato sia DOPO clean.sql
 --
---  Credenziali utenti di test (tutti con password "password"):
---    admin        / password  (già esistente)
+--  Credenziali (tutti con password "password"):
+--    admin        / password  (amministratore)
 --    mario.rossi  / password
 --    giulia.verdi / password
 -- =============================================================
 
 USE `progettotecnologia`;
+
+-- ============================================================
+-- UTENTE E GRUPPO ADMIN
+-- Inserimento idempotente con INSERT IGNORE: se l'admin esiste
+-- già (es. dopo clean.sql, che lo preserva) le righe in conflitto
+-- su PRIMARY KEY / UNIQUE vengono semplicemente saltate, senza errori
+-- né duplicati. Su uno schema vuoto invece l'admin viene creato.
+-- ============================================================
+
+INSERT IGNORE INTO groups (id, name, description) VALUES
+(1, 'admin', 'Amministratori del sistema');
+
+INSERT IGNORE INTO users (id, username, email, password, name, surname) VALUES
+(1, 'admin', 'admin@test.it',
+ '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+ 'Admin', 'Test');
+
+INSERT IGNORE INTO users_has_groups (users_id, groups_id) VALUES (1, 1);
 
 -- ============================================================
 -- UTENTI DI TEST
@@ -249,3 +267,19 @@ INSERT INTO reviews (experience_id, user_id, rating, comment) VALUES
 
 (4, @giulia_id, 3,
  'Reperti bellissimi ma il Gabinetto Segreto era chiuso il giorno della nostra visita e non ce l\'avevano detto al momento della prenotazione. La guida si è impegnata, ma resta l\'amaro in bocca. Sufficiente.');
+
+-- ============================================================
+-- BOX "PERCHÉ SCEGLIERCI" (home_features)
+-- L'ordine (sort_order) determina la disposizione 2x2 in homepage:
+-- 1 = alto-sx, 2 = alto-dx, 3 = basso-sx, 4 = basso-dx
+-- ============================================================
+
+INSERT INTO home_features (icon, title, description, sort_order) VALUES
+('flaticon-house',      'Esperienze locali',
+ 'Tour guidati, attività all\'aria aperta e avventure a contatto con la cultura locale.', 1),
+('flaticon-mail',       'Prenotazione facile',
+ 'Prenota in pochi clic, ricevi conferma immediata e modifica quando vuoi.', 2),
+('flaticon-restaurant', 'Gastronomia & Cultura',
+ 'Scopri i sapori autentici e le tradizioni dei territori più belli d\'Italia.', 3),
+('flaticon-phone-call', 'Supporto 7/7',
+ 'Il nostro team è sempre disponibile per assisterti prima e durante l\'esperienza.', 4);

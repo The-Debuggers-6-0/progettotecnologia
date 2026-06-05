@@ -13,6 +13,11 @@ $featured = db()->query(
      LIMIT 6'
 )->fetchAll();
 
+// Box "Perché sceglierci" gestibili da backoffice
+$features = db()->query(
+    'SELECT icon, title, description FROM home_features ORDER BY sort_order, id'
+)->fetchAll();
+
 $skin = new_page($config['skin']);
 $skin->setContent('title',     'Home');
 $skin->setContent('year',      date('Y'));
@@ -23,6 +28,12 @@ $skin->setContent('user.name', $_SESSION['user']['name'] ?? '');
 
 $home = new_block('home');
 $home->setContent('has_experiences', count($featured) ? '1' : '');
+
+foreach ($features as $f) {
+    $home->setContent('feature_icon',  htmlspecialchars($f['icon']));
+    $home->setContent('feature_title', htmlspecialchars($f['title']));
+    $home->setContent('feature_text',  htmlspecialchars($f['description'] ?? ''));
+}
 
 foreach ($featured as $e) {
     $coverUrl = $e['cover']

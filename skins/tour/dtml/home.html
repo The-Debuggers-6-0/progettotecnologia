@@ -35,36 +35,19 @@
                 <div class="col-lg-4 order-lg-1">
                     <div class="h-100"><div class="frame h-100"><div class="feature-img-bg h-100" style="background-image: url('<[base]>/skins/tour/images/hero-slider-3.jpg');"></div></div></div>
                 </div>
-                <div class="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-1">
-                    <div class="feature-1 d-md-flex">
-                        <div class="align-self-center">
-                            <span class="flaticon-house display-4 text-primary"></span>
-                            <h3>Esperienze locali</h3>
-                            <p class="mb-0">Tour guidati, attività all'aria aperta e avventure a contatto con la cultura locale.</p>
+                <div class="col-lg-8 order-lg-2">
+                    <div class="row align-items-stretch">
+                        <[foreach]>
+                        <div class="col-6 col-sm-6 feature-1-wrap d-flex">
+                            <div class="feature-1 d-md-flex w-100">
+                                <div class="align-self-center">
+                                    <span class="<[feature_icon]> display-4 text-primary"></span>
+                                    <h3><[feature_title]></h3>
+                                    <p class="mb-0"><[feature_text]></p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="feature-1">
-                        <div class="align-self-center">
-                            <span class="flaticon-restaurant display-4 text-primary"></span>
-                            <h3>Gastronomia &amp; Cultura</h3>
-                            <p class="mb-0">Scopri i sapori autentici e le tradizioni dei territori più belli d'Italia.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-6 col-lg-4 feature-1-wrap d-md-flex flex-md-column order-lg-3">
-                    <div class="feature-1 d-md-flex">
-                        <div class="align-self-center">
-                            <span class="flaticon-mail display-4 text-primary"></span>
-                            <h3>Prenotazione facile</h3>
-                            <p class="mb-0">Prenota in pochi clic, ricevi conferma immediata e modifica quando vuoi.</p>
-                        </div>
-                    </div>
-                    <div class="feature-1 d-md-flex">
-                        <div class="align-self-center">
-                            <span class="flaticon-phone-call display-4 text-primary"></span>
-                            <h3>Supporto 7/7</h3>
-                            <p class="mb-0">Il nostro team è sempre disponibile per assisterti prima e durante l'esperienza.</p>
-                        </div>
+                        <[/foreach]>
                     </div>
                 </div>
             </div>
