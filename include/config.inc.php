@@ -1,12 +1,13 @@
 <?php
 
 /*
- * Configurazione globale dell'applicazione.
- * Contiene tutte le impostazioni che possono essere modificate per adattare l'applicazione al proprio ambiente.
- * 
- * Le costanti NONE / FILE / MEMORY servono al template engine
- * (template2.inc.php) per la modalita' di cache.
+  Configurazione globale dell'applicazione.
+  Contiene tutte le impostazioni che possono essere modificate per adattare l'applicazione al proprio ambiente.
+  
+  Le costanti NONE / FILE / MEMORY servono al template engine
+  (template2.inc.php) per la modalita' di cache.
  */
+
 
 define('NONE',   0);
 define('FILE',   1);
