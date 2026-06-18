@@ -15,7 +15,7 @@ define('MEMORY', 2);
 
 $config = [
 
-    /* --- Database (XAMPP default) -------------------------------- */
+    /* --- Database (credenziali XAMPP default) -------------------------------- */
     'db' => [
         'host'    => '127.0.0.1',
         'port'    => 3306,
