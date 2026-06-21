@@ -437,6 +437,15 @@ cache/*
 uploads/*
 !uploads/.gitkeep
 
+# Immagini demo referenziate dal seed: queste le versioniamo,
+# i futuri upload reali (nomi tipo 1_a3f9b2.jpg) restano ignorati.
+!uploads/experiences/
+uploads/experiences/*
+!uploads/experiences/*_cover.jpg
+!uploads/guides/
+uploads/guides/*
+!uploads/guides/*_cover.jpg
+
 # Config locale (override credenziali DB / segreti)
 include/config.local.inc.php
 

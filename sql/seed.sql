@@ -95,6 +95,13 @@ INSERT INTO guides (id, name, surname, bio, languages, email, phone, is_active) 
 (5, 'Antonio', 'De Luca',  'Napoletano, storico e guida museale con specializzazione in arte greco-romana e reperti del Vesuvio. Collabora col Museo Nazionale da 12 anni.',
                             'Italiano, Inglese',            'antonio.deluca@guide.it', '+39 333 5005005', 1);
 
+-- Foto delle guide (file presenti in uploads/guides/)
+UPDATE guides SET photo_filename = '1_cover.jpg' WHERE id = 1;
+UPDATE guides SET photo_filename = '2_cover.jpg' WHERE id = 2;
+UPDATE guides SET photo_filename = '3_cover.jpg' WHERE id = 3;
+UPDATE guides SET photo_filename = '4_cover.jpg' WHERE id = 4;
+UPDATE guides SET photo_filename = '5_cover.jpg' WHERE id = 5;
+
 -- ============================================================
 -- ESPERIENZE (7)
 -- ============================================================
@@ -135,6 +142,21 @@ INSERT INTO experiences (id, title, slug, description, short_description, price,
  'Un tour a piedi nel cuore della Roma barocca e rinascimentale: Piazza Navona, il Pantheon, Campo de\' Fiori e Fontana di Trevi. Marco e Sofia ti racconteranno storie, scandali e segreti dei papi e degli artisti che hanno trasformato Roma nella città eterna. Il tour ideale per chi visita Roma per la prima volta.',
  'Tour a piedi tra Pantheon, Piazza Navona e Fontana di Trevi nel cuore di Roma.',
  20.00, 150, 20, 1, 1, 1);
+
+-- ============================================================
+-- FOTO DI COPERTINA DELLE ESPERIENZE
+-- File presenti in uploads/experiences/ (es. 1_cover.jpg).
+-- is_cover = 1 indica la foto usata come copertina in home/elenco.
+-- ============================================================
+
+INSERT INTO experience_photos (experience_id, filename, is_cover, sort_order) VALUES
+(1, '1_cover.jpg', 1, 0),
+(2, '2_cover.jpg', 1, 0),
+(3, '3_cover.jpg', 1, 0),
+(4, '4_cover.jpg', 1, 0),
+(5, '5_cover.jpg', 1, 0),
+(6, '6_cover.jpg', 1, 0),
+(7, '7_cover.jpg', 1, 0);
 
 -- ============================================================
 -- GUIDE ASSEGNATE ALLE ESPERIENZE
