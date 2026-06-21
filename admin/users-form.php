@@ -20,6 +20,26 @@ if ($isEdit) {
     $fields = $row;
 }
 
+// Gruppi disponibili per il menu a tendina (admin / Visitatori / ...)
+$allGroups = db()->query('SELECT id, name FROM groups ORDER BY id')->fetchAll();
+$validIds  = array_map('intval', array_column($allGroups, 'id'));
+
+// Gruppo preselezionato: in modifica quello attuale dell'utente
+$selectedGroupId = 0;
+if ($isEdit) {
+    $g = db()->prepare('SELECT groups_id FROM users_has_groups WHERE users_id = ? LIMIT 1');
+    $g->execute([$id]);
+    $selectedGroupId = (int) $g->fetchColumn();
+}
+// Default a "Visitatori" se non c'è un gruppo selezionato (nuovo utente o utente senza gruppo)
+if ($selectedGroupId === 0) {
+    foreach ($allGroups as $grp) {
+        if ($grp['name'] === 'Visitatori') {
+            $selectedGroupId = (int) $grp['id'];
+        }
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $fields['username'] = trim($_POST['username'] ?? '');
@@ -27,6 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fields['name']     = trim($_POST['name']     ?? '');
     $fields['surname']  = trim($_POST['surname']  ?? '');
     $password           = $_POST['password'] ?? '';
+    $selectedGroupId    = (int)($_POST['group_id'] ?? 0);
 
     if ($fields['username'] === '' || $fields['email'] === '') {
         $error = 'Username ed email sono obbligatori.';
@@ -63,6 +84,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     password_hash($password, PASSWORD_DEFAULT),
                 ]);
             }
+
+            // Gruppo scelto dall'admin (un solo gruppo per utente):
+            // sostituisce l'eventuale gruppo precedente.
+            $targetUserId = $isEdit ? $id : (int) db()->lastInsertId();
+            if (in_array($selectedGroupId, $validIds, true)) {
+                db()->prepare('DELETE FROM users_has_groups WHERE users_id = ?')
+                    ->execute([$targetUserId]);
+                db()->prepare('INSERT INTO users_has_groups (users_id, groups_id) VALUES (?, ?)')
+                    ->execute([$targetUserId, $selectedGroupId]);
+            }
+
             header('Location: ' . $config['base'] . '/admin/users.php');
             exit;
 
@@ -87,6 +119,16 @@ $block->setContent('error',       $error);
 $block->setContent('back_url',    $config['base'] . '/admin/users.php');
 $block->setContent('action_url',  $config['base'] . '/admin/users-form.php' . ($isEdit ? '?id=' . $id : ''));
 $block->setContent('password_hint', $isEdit ? '(lascia vuoto per non cambiare)' : '');
+
+// Costruisco le <option> del menu Gruppo, preselezionando quella corrente
+$groupOptions = '';
+foreach ($allGroups as $grp) {
+    $sel = ((int)$grp['id'] === $selectedGroupId) ? ' selected' : '';
+    $groupOptions .= '<option value="' . (int)$grp['id'] . '"' . $sel . '>'
+                   . htmlspecialchars($grp['name']) . '</option>';
+}
+$block->setContent('group_options', $groupOptions);
+
 foreach ($fields as $key => $val) {
     $block->setContent($key, htmlspecialchars((string)$val));
 }

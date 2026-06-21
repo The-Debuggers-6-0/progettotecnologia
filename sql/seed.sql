@@ -29,6 +29,15 @@ INSERT IGNORE INTO users (id, username, email, password, name, surname) VALUES
 INSERT IGNORE INTO users_has_groups (users_id, groups_id) VALUES (1, 1);
 
 -- ============================================================
+-- GRUPPO "VISITATORI"
+-- Gruppo di default per gli utenti registrati normali (non admin):
+-- chi si registra dal sito o viene creato dall'admin finisce qui.
+-- ============================================================
+
+INSERT IGNORE INTO groups (id, name, description) VALUES
+(2, 'Visitatori', 'Utenti registrati del sito');
+
+-- ============================================================
 -- UTENTI DI TEST
 -- ============================================================
 
@@ -43,6 +52,11 @@ INSERT INTO users (username, email, password, name, surname) VALUES
  '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
  'Giulia', 'Verdi');
 SET @giulia_id = LAST_INSERT_ID();
+
+-- I due utenti di test sono normali visitatori (gruppo id=2)
+INSERT INTO users_has_groups (users_id, groups_id) VALUES
+(@mario_id,  2),
+(@giulia_id, 2);
 
 -- ============================================================
 -- CATEGORIE

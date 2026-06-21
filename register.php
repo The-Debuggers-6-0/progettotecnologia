@@ -40,6 +40,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $fields['surname'],
             ]);
 
+            // Ogni utente registrato è un "Visitatore": lo aggiungo al gruppo.
+            $newUserId = (int) db()->lastInsertId();
+            $grp = db()->prepare('SELECT id FROM groups WHERE name = ?');
+            $grp->execute(['Visitatori']);
+            $groupId = $grp->fetchColumn();
+            if ($groupId) {
+                db()->prepare('INSERT INTO users_has_groups (users_id, groups_id) VALUES (?, ?)')
+                    ->execute([$newUserId, $groupId]);
+            }
+
             header('Location: ' . $config['base'] . '/login.php');
             exit;
 
