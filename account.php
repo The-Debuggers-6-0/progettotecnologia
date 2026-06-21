@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
 
         // Risposta JSON per richieste AJAX
-        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+        if (!empty($_SERVER['HTTP_X_AJAX'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => $profileError === '',
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
         }
 
         // Risposta JSON per richieste AJAX
-        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+        if (!empty($_SERVER['HTTP_X_AJAX'])) {
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => $passwordError === '',
@@ -154,7 +154,7 @@ $accountJs = '<script>'
     . 'e.preventDefault();'
     . 'fetch(window.location.href,{'
     . 'method:"POST",'
-    . 'headers:{"X-Requested-With":"XMLHttpRequest"},'
+    . 'headers:{"X-Ajax":"1"},'
     . 'body:new FormData(form)'
     . '})'
     . '.then(function(r){return r.json();})'
