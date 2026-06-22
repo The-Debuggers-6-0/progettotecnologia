@@ -40,7 +40,4 @@ $config = [
     'languages'        => [],
     'currentlanguage'  => 'it',
     'currenttab'       => '',
-
-    /* --- App ----------------------------------------------------- */
-    'app_name' => 'Esperienze & Tour',
 ];
