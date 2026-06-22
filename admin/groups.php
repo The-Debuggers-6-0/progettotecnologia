@@ -5,9 +5,11 @@ require_admin();
 
 $groups = db()->query(
     'SELECT g.id, g.name, g.description,
-            COUNT(ug.users_id) AS user_count
+            COUNT(DISTINCT ug.users_id)          AS user_count,
+            COUNT(DISTINCT sg.services_username)  AS service_count
      FROM groups g
-     LEFT JOIN users_has_groups ug ON ug.groups_id = g.id
+     LEFT JOIN users_has_groups ug    ON ug.groups_id = g.id
+     LEFT JOIN services_has_groups sg ON sg.groups_id = g.id
      GROUP BY g.id
      ORDER BY g.name'
 )->fetchAll();
@@ -23,7 +25,8 @@ $block->setContent('new_url', $config['base'] . '/admin/groups-form.php');
 foreach ($groups as $g) {
     $block->setContent('group_name',        htmlspecialchars($g['name']));
     $block->setContent('group_description', htmlspecialchars($g['description'] ?? '—'));
-    $block->setContent('group_user_count',  $g['user_count']);
+    $block->setContent('group_user_count',    $g['user_count']);
+    $block->setContent('group_service_count', $g['service_count']);
     $block->setContent('group_edit_url',    $config['base'] . '/admin/groups-form.php?id=' . $g['id']);
     $block->setContent('group_delete_url',  $config['base'] . '/admin/groups-delete.php?id=' . $g['id']);
 }
