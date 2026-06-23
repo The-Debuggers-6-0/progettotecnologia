@@ -41,12 +41,12 @@ $block = new_block('tours');
 
 // Filtro categorie
 $btnStyle = 'margin-right:1rem;padding:.75rem 2rem;font-size:1.1rem;border-radius:2rem;';
-$filterHtml = '<a href="' . $config['base'] . '/tours.php" class="btn '
+$filterHtml = '<a href="' . $config['base'] . '/tours.php" class="btn cat-filter '
     . ($catId === 0 ? 'btn-primary' : 'btn-outline-primary') . '" style="' . $btnStyle . '">Tutte</a>';
 foreach ($categories as $cat) {
     $active      = ($cat['id'] == $catId) ? 'btn-primary' : 'btn-outline-primary';
     $filterHtml .= '<a href="' . $config['base'] . '/tours.php?cat=' . $cat['id']
-                 . '" class="btn ' . $active . '" style="' . $btnStyle . '">'
+                 . '" class="btn cat-filter ' . $active . '" style="' . $btnStyle . '">'
                  . htmlspecialchars($cat['name']) . '</a>';
 }
 $block->setContent('category_filters', $filterHtml);

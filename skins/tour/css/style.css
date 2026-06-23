@@ -78,6 +78,15 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
     .btn.btn-outline-white:hover {
       background: #ffffff;
       color: #1A374D !important; }
+  .btn.cat-filter.btn-outline-primary {
+    color: #6998AB;
+    border-color: #6998AB; }
+    .btn.cat-filter.btn-outline-primary:hover,
+    .btn.cat-filter.btn-outline-primary:focus,
+    .btn.cat-filter.btn-outline-primary:active {
+      background: #6998AB;
+      border-color: #6998AB;
+      color: #ffffff; }
 
 .text-white-opacity {
   opacity: .7; }
